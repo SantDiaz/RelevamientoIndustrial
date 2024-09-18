@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 // import { bienes, datos_empresas, domicilio_industrial, email_respondente, nombres_fantasia, opciones_servicios, produccion, productos, respondente, servicios, telefonos_empresa, telefonos_repondente, unidad_medidas } from 'src/app/Interfaces/models';
-import { bienes_insumos, produccion, unidad_medidas, servicios, servicios_basicos, remuneraciones_cargas, DatosEmpresa  } from 'src/app/Interfaces/models';
+import { bienes_insumos, produccion, unidad_medidas, servicios, servicios_basicos, remuneraciones_cargas, DatosEmpresa, DatosRespondiente  } from 'src/app/Interfaces/models';
 import { ServicesService } from 'src/app/services/services.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -42,99 +42,28 @@ export class OneComponent implements OnInit {
     localidadEstablecimiento: '',
     actividadPrincipal: ''
   };
-  // nombreFantasia: nombres_fantasia = {
-  //   id: 0,
-  //   id_empresa: 0,
-  //   razon_social: '',
-  //   fecha_actualizacion: new Date(),
-  //   nombre_fantasia: ''
-  // };
 
-  // domicilioIndustrial: domicilio_industrial = {
-  //   id: 0,
-  //   id_empresa: 0,
-  //   razon_social: '',
-  //   domicilio_establecimiento_industrial: '',
-  //   departamento_domicilio_industrial: ''
-  // };
-
-  // datosEmpresa: datos_empresas = {
-  //   id_empresa: 0,
-  //   razon_social: '',
-  //   fecha_actualizacion: new Date(),
-  //   actividad_principal: '',
-  //   clanae: '',
-  //   domicilio_administracion: '',
-  //   observaciones: '',
-  //   cuit: '',
-  // };
-
-  // respondente: respondente = {
-  //   id: 0,
-  //   nombre_apellido: '',
-  //   cargo_area: '',
-  //   observaciones: ''
-  // };
-
-  // emailRespondente: email_respondente = {
-  //   id: 0,
-  //   id_respondente: 0,
-  //   email: ''
-  // };
-
-  // telefonosRespondente: telefonos_repondente = {
-  //   id: 0,
-  //   id_respondente: 0,
-  //   tipo_telefono: '',
-  //   numero_telefono: ''
-  // };
-
-  // producto: productos = {
-  //   nombre: '',
-  //   descripcion: ''
-  // };
-
-  // biene: bienes = {
-  //   id: 0,
-  //   id_modulo: 0,
-  //   producto: '',
-  //   unidad_medida: null,
-  //   monto_pesos: 0,
-  //   cantidad: 0,
-  // };
-
-  // opciones_servicio: opciones_servicios = {
-  //   nombre: '',
-  //   descripcion: ''
-  // };  
-
-  // opcionesServicios: opciones_servicios[] = [];
-
-
+  datosRespondiente: DatosRespondiente = {
+    nombreApellido: '',
+    cargoArea: '',
+    tipoTelefono: 'Particular',
+    email: ''
+  };
+ 
   constructor(
     private router: Router,
     private productoService: ServicesService,
     private http: HttpClient,
   ) { }
 
-  // ngOnInit(): void {
-  //   this.agregarNuevaFila(); // Agregar una fila inicial
-  
-  // }
+
   
   ngOnInit(): void {
     this.agregarNuevaFila(); // Agregar una fila inicial
     this.agregarNuevaFila3(); // Agregar una fila inicial
     this.agregarNuevaFilaServicio();
     this. agregarNuevaFilaServicioBasico()
-    // this.searchTermSubject.pipe(
-    //   debounceTime(300),
-    //   switchMap(term => this.http.get<datos_empresas[]>(`/api/empresas/buscar?term=${term}`))
-    // ).subscribe(result => {
-    //   this.empresas = result;
-    // });
-
-    // this.searchTermSubject.next(this.searchTerm); // Initialize the search
+ 
   }
 
   onSearchChange(term: string) {
@@ -142,7 +71,7 @@ export class OneComponent implements OnInit {
   }
 
 
-  Enviars1() {
+  EnviarS1() {
     this.productoService.enviarDatos(this.datosEmpresa).subscribe(
       (response) => {
         console.log('Datos enviados exitosamente:', response);
@@ -151,40 +80,17 @@ export class OneComponent implements OnInit {
         console.error('Error al enviar los datos:', error);
       }
     );
+
+    this.productoService.enviarDatosRespondiente(this.datosRespondiente).subscribe(
+      (response) => {
+        console.log('Datos del respondiente enviados exitosamente:', response);
+      },
+      (error) => {
+        console.error('Error al enviar los datos del respondiente:', error);
+      }
+    );
   }
-  // onBuscarOAgregarProducto(event: Event, index: number) {
-  //   const inputElement = event.target as HTMLInputElement;
-  //   const nombre = inputElement?.value || '';
-
-  //   if (!nombre) return;
-
-  //   this.productoService.buscarProducto(nombre).subscribe(
-  //     (productoExistente) => {
-  //       if (!productoExistente) {
-  //         const nuevoProducto: productos = { nombre, descripcion: 'Descripción predeterminada' };
-  //         this.productoService.agregarProducto(nuevoProducto).subscribe((productoAgregado) => {
-  //           this.actualizarProduccion(index, productoAgregado.nombre);
-  //         });
-  //       } else {
-  //         this.actualizarProduccion(index, productoExistente.nombre);
-  //       }
-  //     }
-  //   );
-  // }
-
-  // buscarEmpresas() {
-  //   this.http.get<datos_empresas[]>(`/api/empresas/buscar?term=${this.searchTerm}`)
-  //     .subscribe(result => {
-  //       this.empresas = result;
-  //     });
-  // }
-
-  // seleccionarEmpresa(empresa: datos_empresas) {
-  //   this.selectedEmpresa = empresa;
-  //   // empresa.cuit = this.selectedEmpresa.cuit
-  //   // Aquí puedes llenar los demás campos del formulario con los datos seleccionados
-  // }
-
+ 
   actualizarProduccion(index: number, nombre: string) {
     this.producciones[index].producto = nombre;
   }

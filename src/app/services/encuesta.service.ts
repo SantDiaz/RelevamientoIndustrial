@@ -8,7 +8,7 @@
   })
   export class EncuestaService {
 
-    private apiUrl = 'http://localhost:8080/api/encuestas';  // Update with your backend API URL
+    private apiUrl = 'http://localhost:4200/api/encuestas';  // Update with your backend API URL
 
     constructor(private http: HttpClient) { }
 

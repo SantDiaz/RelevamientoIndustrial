@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {  DatosEmpresa, produccion } from 'src/app/Interfaces/models';
+import {  DatosEmpresa, DatosRespondiente, produccion } from 'src/app/Interfaces/models';
 
 
 @Injectable({
@@ -9,7 +9,8 @@ import {  DatosEmpresa, produccion } from 'src/app/Interfaces/models';
 })
 export class ServicesService {
   private baseUrl = 'http://tu-backend.com/api'; // Cambia esto a la URL de tu backend
-  private apiUrlDatosEmpresa = 'http://localhost:8080/api/datosempresa'; // URL del backend
+  private apiUrlDatosEmpresa = 'http://localhost:4200/api/datosempresa'; // URL del backend
+  private apiUrlRespondiente = 'http://localhost:4200/api/respondiente'; // URL del backend
 
   constructor(private http: HttpClient) { }
 
@@ -29,5 +30,8 @@ export class ServicesService {
     return this.http.post(this.apiUrlDatosEmpresa, datosEmpresa);
   }
 
+  enviarDatosRespondiente(datosRespondiente: DatosRespondiente): Observable<any> {
+    return this.http.post(this.apiUrlRespondiente, datosRespondiente);
+  }
 
 }

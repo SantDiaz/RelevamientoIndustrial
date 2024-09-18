@@ -22,7 +22,12 @@ export interface DatosEmpresa {
     actividadPrincipal: string;
   }
   
-
+  export interface DatosRespondiente {
+    nombreApellido: string;
+    cargoArea: string;
+    tipoTelefono: 'Particular' | 'Corporativo';
+    email: string;
+  }
 
 
 export interface produccion {
