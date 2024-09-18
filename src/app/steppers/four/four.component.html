@@ -1,0 +1,323 @@
+<app-header></app-header>
+
+<br>
+<div class="container mx-auto p-4">
+  <div class="mb-8">
+    <ol class="flex items-center justify-between w-full">
+      <!-- Paso 1 -->
+      <li class="flex items-center w-full"
+        [ngClass]="{
+          'text-[#FF8300]': currentStep >= 1
+        }">
+        <span class="flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0"
+          [ngClass]="{
+            'bg-[#FF8300]': currentStep >= 1,
+            'bg-gray-100 dark:bg-gray-700': currentStep < 1
+          }">
+          <svg class="w-3.5 h-3.5 text-white lg:w-4 lg:h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+          </svg>
+        </span>
+        <div class="flex-grow h-1 mx-2"
+          [ngClass]="{
+            'bg-[#FF8300]': currentStep >= 2,
+            'bg-gray-300 dark:bg-gray-700': currentStep < 2
+          }"></div>
+      </li>
+
+      <!-- Paso 2 -->
+      <li class="flex items-center">
+        <span class="flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0"
+          [ngClass]="{
+            'bg-[#FF8300]': currentStep >= 2,
+            'bg-gray-100 dark:bg-gray-700': currentStep < 2
+          }">
+          <span class="text-white">2</span>
+        </span>
+      </li>
+    </ol>
+  </div>
+</div>
+
+
+  <div id="step-1">
+  <div class="max-w-6xl mx-auto bg-white p-6 shadow-md rounded-lg">
+
+      <!-- Title -->
+      <h1 class="text-xl font-bold text-center mb-4">
+          INDUSTRIA MANUFACTURERA - ENCUESTA I+D
+      </h1>
+      <h2 class="text-lg font-semibold text-center mb-6">
+          INVERSIÓN EN INVESTIGACIÓN Y DESARROLLO
+      </h2>
+
+      <!-- Explanation section -->
+      <div class="mb-6">
+          <p class="text-sm mb-4">
+            Investigación y Desarrollo (I+D) es el trabajo creativo realizado en forma sistemática, es decir, no ocasional, con el objetivo de generar un nuevo conocimiento (científico o técnico) o de aplicar o aprovechar un conocimiento ya existente o desarrollado por otro. Dentro de la I+D pueden distinguirse tres grandes categorías: la investigación básica (generar un nuevo conocimiento principalmente abstracto o teórico dentro de un área científica o técnica), la investigación aplicada (generar un nuevo conocimiento teniendo desde un principio la finalidad o destino al que se desea arribar) o el desarrollo experimental (fabricación y puesta a prueba de un prototipo, desempeños del nuevo producto, proceso o técnica organizacional o de comercialización). La creación de software se considera I+D, en tanto y en cuanto, implique hacer avances científicos o tecnológicos. Cabe aclarar que las actividades de I+D no siempre se realizan en el ámbito de un laboratorio o de un departamento de I+D. Es más, muchas empresas, en especial medianas y pequeñas, no poseen estructuras formales de I+D y ello no implica que no realicen este tipo de actividades.
+          </p>
+      </div>
+    <!-- Form Title -->
+    <h2 class="text-lg font-bold mb-4">
+        11. Por favor, Indique si en el año en curso realizó alguna de estas actividades en procura de lograr innovaciones de producto, de proceso, o de tipo organizacional.
+    </h2>
+
+    <!-- Form Grid -->
+    <div class="grid grid-cols-12 gap-2">
+        <!-- Labels Row -->
+        <div class="col-span-1 font-semibold text-center">Sí</div>
+        <div class="col-span-1 font-semibold text-center">No</div>
+        <div class="col-span-4 font-semibold text-center">Monto Total en pesos ($) destinado a cada actividad (sin centavos)</div>
+        <div class="col-span-6 font-semibold text-center">Aclaraciones Conceptuales</div>
+
+        <!-- First Row -->
+        <div class="col-span-12 grid grid-cols-12 items-start mt-4">
+            <div class="col-span-1 text-center">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+            </div>
+            <div class="col-span-1 text-center">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+            </div>
+            <div class="col-span-4">
+              <input type="number" class="w-full border border-gray-300 px-35 py-1" placeholder="$">
+            </div>
+            <div class="col-span-6 border border-gray-300 rounded p-4">
+                <strong>Externa:</strong> Es el trabajo creativo, que no se realiza dentro de la empresa o con personal de la empresa, sino que se encarga a un tercero, ya sea mediante la contratación o financiación de un grupo de investigadores, institución o empresa con el acuerdo de que los resultados del trabajo serán de propiedad, total o parcial, de la empresa contratante.
+            </div>
+        </div>
+
+        <!-- Second Row - Subsection -->
+        <div class="col-span-12 grid  items-start mt-4">
+            <div class="col-span-2 font-semibold">Origen del Proveedor <br> (Solo rellenar si consteto SI (X) en 11.a)</div>
+        </div>
+
+        <!-- Provincial -->
+        <div class="col-span-12 grid grid-cols-12 items-start mt-2">
+            <div class="col-span-2 pl-4">a.1 Provincial</div>
+            <div class="col-span-1 text-center">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+            </div>
+            <div class="col-span-1 text-center">
+              <input type="number" class="w-full border border-gray-300 px-35 py-1" placeholder="$">
+            </div>
+            <div class="col-span-8"></div>
+        </div>
+
+        <!-- Otra Provincia -->
+        <div class="col-span-12 grid grid-cols-12 items-start mt-2">
+            <div class="col-span-2 pl-4">a.2 Otra Provincia</div>
+            <div class="col-span-1 text-center">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+            </div>
+            <div class="col-span-1 text-center">
+              <input type="number" class="w-full border border-gray-300 px-35 py-1" placeholder="$">
+            </div>
+            <div class="col-span-8"></div>
+        </div>
+
+        <!-- Internacional -->
+        <div class="col-span-12 grid grid-cols-12 items-start mt-2">
+            <div class="col-span-2 pl-4">a.3 Internacional</div>
+            <div class="col-span-1 text-center">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600">
+            </div>
+            <div class="col-span-1 text-center">
+              <input type="number" class="w-full border border-gray-300 px-35 py-1" placeholder="$">
+            </div>
+            <div class="col-span-8"></div>
+        </div>
+
+    </div>
+    <tbody>
+      <td class="border p-2"><div > Si ---  NO</div>
+      <tr>
+        <td class="border p-2"><input type="checkbox" class="form-checkbox"></td>
+        <td class="border p-2"><input type="checkbox" class="form-checkbox"></td>
+        <input type="number" class="w-full border border-gray-300 px-35 py-1" placeholder="$">
+        <td class="border p-2">
+          <p class="text-sm">b. I+D interna</p>
+          <p class="text-sm">Interna, es cuando el trabajo creativo es realizado por pesonal dependiente de la empresa</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="border p-2"><input type="checkbox" class="form-checkbox"></td>
+        <td class="border p-2"><input type="checkbox" class="form-checkbox"></td>
+        <input type="number" class="w-full border border-gray-300 px-35 py-1" placeholder="$">
+        <td class="border p-2">
+          <p class="text-sm">c. Adquisición de maquinarias y equipos</p>
+          <p class="text-sm">Son actividades de innovación únicamente cuando se trate de la incorporación de bienes vinculados a introducir mejoras y/o innovaciones de procesos, productos o técnicas organizacionales o de comercialización. El reemplazo de una máquina por otra de similares características o una nueva versión de un software ya instalado no implica una actividad de innovación.</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="border p-2"><input type="checkbox" class="form-checkbox"></td>
+        <td class="border p-2"><input type="checkbox" class="form-checkbox"></td>
+        <input type="number" class="w-full border border-gray-300 px-35 py-1" placeholder="$">
+        <td class="border p-2">
+          <p class="text-sm">d. Adquisición de Hardware</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="border p-2"><input type="checkbox" class="form-checkbox"></td>
+        <td class="border p-2"><input type="checkbox" class="form-checkbox"></td>
+        <input type="number" class="w-full border border-gray-300 px-35 py-1" placeholder="$">
+        <td class="border p-2">
+          <p class="text-sm">e. Contratación de Tecnología</p>
+          <p class="text-sm">Es toda adquisición de derechos de uso de patentes, inventos no patentados, licencias, marcas, diseños, know-how o asistencia técnica vinculada a introducir mejoras y/o innovaciones de procesos, productos o técnicas organizacionales o de comercialización</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="border p-2"><input type="checkbox" class="form-checkbox"></td>
+        <td class="border p-2"><input type="checkbox" class="form-checkbox"></td>
+        <input type="number" class="w-full border border-gray-300 px-35 py-1" placeholder="$">
+        <td class="border p-2">
+          <p class="text-sm">f. Capacitación</p>
+          <p class="text-sm">Será considerada una actividad de innovación siempre y cuando no signifique capacitar a nuevos trabajadores en métodos, procesos o técnicas ya existentes en la empresa. Esta puede ser capacitación interna o externa del personal, tanto en tecnologías blandas (gestión y administración) como en tecnologías duras (procesos productivos)</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="border p-2"><input type="checkbox" class="form-checkbox"></td>
+        <td class="border p-2"><input type="checkbox" class="form-checkbox"></td>
+        <input type="number" class="w-full border border-gray-300 px-5 py-1" placeholder="$">
+        <td class="border p-2">
+          <p class="text-sm">g.  Diseño industrial y actividades de ingeniería</p>
+          <p class="text-sm">Incluyen todas las preparaciones técnicas, para la producción y distribución no incluidas en I+D, así como los planos y gráficos para la definición de procedimientos, especificaciones técnicas y características operativas; instalación de maquinaria; ingeniería industrial; y puesta en marcha de la producción.</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="border p-2"><input type="checkbox" class="form-checkbox"></td>
+        <td class="border p-2"><input type="checkbox" class="form-checkbox"></td>
+        <input type="number" class="w-full border border-gray-300 px-35 py-1" placeholder="$">
+        <td class="border p-2">
+          <p class="text-sm">h. Consultorías</p>
+          <p class="text-sm">Implican toda contratación de servicios científicos y técnicos relacionados con las actividades de Ingeniería y Diseño Industrial o desarrollo o implementación de sistemas informáticos por terceros externos a la empresa. Recuerde que si las actividades contratadas a terceros se relacionan con I+D o Capacitación entonces deberán considerarlas como actividades de I+D externa y Capacitación respectivamente.</p>
+        </td>
+      </tr>
+    </tbody>
+    <br>
+    <div class="flex justify-center">
+      <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded" (click)="nextStep()">Siguiente</button>
+    </div>
+  </div>
+</div>
+
+
+
+  <div id="step-2" class="hidden">
+    <div class="max-w-6xl mx-auto bg-white p-6 shadow-md rounded-lg">
+    <div class="p-4">
+      <h1 class="text-xl font-bold text-center mb-4">INDUSTRIA MANUFACTURERA - ENCUESTA CUALITATIVA</h1>
+      <h2 class="text-lg font-semibold mb-4">PERSPECTIVAS PARA EL SIGUIENTE AÑO</h2>
+      <p class="mb-2">10. ¿Cómo piensa que evolucionarán en su empresa los siguientes ítems en el siguiente año, en comparación con el año actual? (Por favor, marque con una X una opción por fila)</p>
+     
+      <table class="table-auto w-full border-collapse border border-gray-300">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="border border-gray-300 p-2 text-left">Item</th>
+            <th class="border border-gray-300 p-2">Aumentará/n</th>
+            <th class="border border-gray-300 p-2">No variará/n</th>
+            <th class="border border-gray-300 p-2">Disminuirá/n</th>
+            <th class="border border-gray-300 p-2">No se aplica</th>
+            <th class="border border-gray-300 p-2">Observaciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="border border-gray-300 p-2">10.1 Demanda interna</td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2"><input type="text" class="w-full border border-gray-300 p-1"></td>
+          </tr>
+          <!-- Repetir para cada fila -->
+          <tr>
+            <td class="border border-gray-300 p-2">10.2 Exportaciones totales</td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2"><input type="text" class="w-full border border-gray-300 p-1"></td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 p-2">10.3 Exportaciones al Mercosur (exclusivamente)</td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2"><input type="text" class="w-full border border-gray-300 p-1"></td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 p-2">10.4 Importaciones totales de insumos</td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2"><input type="text" class="w-full border border-gray-300 p-1"></td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 p-2">10.5 Importaciones de insumos Mercosur (exclusivamente)</td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2"><input type="text" class="w-full border border-gray-300 p-1"></td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 p-2">10.6 Stocks de productos terminados</td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2"><input type="text" class="w-full border border-gray-300 p-1"></td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 p-2">10.7 Utilización de la capacidad instalada</td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2"><input type="text" class="w-full border border-gray-300 p-1"></td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 p-2">10.8 Necesidades de crédito</td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2"><input type="text" class="w-full border border-gray-300 p-1"></td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 p-2">10.9 Personal ocupado</td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2"><input type="text" class="w-full border border-gray-300 p-1"></td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 p-2">10.10 Horas trabajadas del personal afectado al proceso productivo</td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2"><input type="text" class="w-full border border-gray-300 p-1"></td>
+          </tr>
+          <tr>
+            <td class="border border-gray-300 p-2">10.11 Inversión</td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2 text-center"><input type="checkbox"></td>
+            <td class="border border-gray-300 p-2"><input type="text" class="w-full border border-gray-300 p-1"></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <br>
+      <div class="flex justify-center">
+      <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2" (click)="previousStep()">Anterior</button>
+      <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded mr-2" (click)="nextSteper()">Siguiente</button>
+      </div>
+  </div>
+  </div>
