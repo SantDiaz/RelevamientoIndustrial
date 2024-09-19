@@ -26,6 +26,7 @@ export interface DatosEmpresa {
     nombreApellido: string;
     cargoArea: string;
     tipoTelefono: 'Particular' | 'Corporativo';
+    numeroTelefono: number;
     email: string;
   }
 

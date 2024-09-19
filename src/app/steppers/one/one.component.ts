@@ -47,6 +47,7 @@ export class OneComponent implements OnInit {
     nombreApellido: '',
     cargoArea: '',
     tipoTelefono: 'Particular',
+    numeroTelefono: 0,
     email: ''
   };
  
@@ -71,7 +72,12 @@ export class OneComponent implements OnInit {
   }
 
 
-  EnviarS1() {
+  EnviarS1() {      
+    if (this.currentStep < 10) {
+      this.currentStep++;
+      this.updateStepVisibility();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     this.productoService.enviarDatos(this.datosEmpresa).subscribe(
       (response) => {
         console.log('Datos enviados exitosamente:', response);
