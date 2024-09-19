@@ -72,30 +72,28 @@ export class OneComponent implements OnInit {
   }
 
 
-  EnviarS1() {      
+  EnviarS1() {    
     if (this.currentStep < 10) {
       this.currentStep++;
       this.updateStepVisibility();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    this.productoService.enviarDatos(this.datosEmpresa).subscribe(
+  
+    const datosCombinados = {
+      datosEmpresa: this.datosEmpresa,
+      datosRespondiente: this.datosRespondiente
+    };
+  
+    this.productoService.enviarDatosCombinados(datosCombinados).subscribe(
       (response) => {
-        console.log('Datos enviados exitosamente:', response);
+        console.log('Datos combinados enviados exitosamente:', response);
       },
       (error) => {
-        console.error('Error al enviar los datos:', error);
-      }
-    );
-
-    this.productoService.enviarDatosRespondiente(this.datosRespondiente).subscribe(
-      (response) => {
-        console.log('Datos del respondiente enviados exitosamente:', response);
-      },
-      (error) => {
-        console.error('Error al enviar los datos del respondiente:', error);
+        console.error('Error al enviar los datos combinados:', error);
       }
     );
   }
+  
  
   actualizarProduccion(index: number, nombre: string) {
     this.producciones[index].producto = nombre;

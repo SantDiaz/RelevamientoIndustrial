@@ -8,9 +8,10 @@ import {  DatosEmpresa, DatosRespondiente, produccion } from 'src/app/Interfaces
   providedIn: 'root'
 })
 export class ServicesService {
-  private baseUrl = 'http://tu-backend.com/api'; // Cambia esto a la URL de tu backend
-  private apiUrlDatosEmpresa = 'http://localhost:4200/api/datosempresa'; // URL del backend
-  private apiUrlRespondiente = 'http://localhost:4200/api/respondiente'; // URL del backend
+  private baseUrl = 'http://localhost:4200'; // Cambia esto a la URL de tu backend
+  // private apiUrlDatosEmpresa = 'http://localhost:4200/api/datosempresa'; // URL del backend
+  // private apiUrlRespondiente = 'http://localhost:4200/api/respondiente'; // URL del backend
+  private apiUrlCombinado = `${this.baseUrl}/datoscombinados`; // Ruta del backend para el envío combinado
 
   constructor(private http: HttpClient) { }
 
@@ -26,12 +27,15 @@ export class ServicesService {
     return this.http.post<produccion>(`${this.baseUrl}/produccion`, produccion);
   }
 
-  enviarDatos(datosEmpresa: DatosEmpresa): Observable<any> {
-    return this.http.post(this.apiUrlDatosEmpresa, datosEmpresa);
-  }
+  // enviarDatos(datosEmpresa: DatosEmpresa): Observable<any> {
+  //   return this.http.post(this.apiUrlDatosEmpresa, datosEmpresa);
+  // }
 
-  enviarDatosRespondiente(datosRespondiente: DatosRespondiente): Observable<any> {
-    return this.http.post(this.apiUrlRespondiente, datosRespondiente);
-  }
+  // enviarDatosRespondiente(datosRespondiente: DatosRespondiente): Observable<any> {
+  //   return this.http.post(this.apiUrlRespondiente, datosRespondiente);
+  // }
 
+  enviarDatosCombinados(datosCombinados: { datosEmpresa: DatosEmpresa; datosRespondiente: DatosRespondiente }): Observable<any> {
+    return this.http.post(this.apiUrlCombinado, datosCombinados);
+  }
 }
