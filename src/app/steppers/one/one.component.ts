@@ -34,6 +34,7 @@ export class OneComponent implements OnInit {
 
 
   datosEmpresa: DatosEmpresa = {
+    id : 0,
     nombreEmpresa: '',
     nombreFantasia: '',
     cuit: '',
@@ -44,6 +45,7 @@ export class OneComponent implements OnInit {
   };
 
   datosRespondiente: DatosRespondiente = {
+    id: 0,
     nombreApellido: '',
     cargoArea: '',
     tipoTelefono: 'Particular',
@@ -72,32 +74,40 @@ export class OneComponent implements OnInit {
   }
 
 
-  EnviarS1() {    
+  EnviarS1() {      
+    console.log(this.datosEmpresa); // Verificar datos enviados
+
     if (this.currentStep < 10) {
       this.currentStep++;
       this.updateStepVisibility();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  
-    const datosCombinados = {
-      datosEmpresa: this.datosEmpresa,
-      datosRespondiente: this.datosRespondiente
-    };
-  
-    this.productoService.enviarDatosCombinados(datosCombinados).subscribe(
+    this.productoService.enviarDatosEmpresa(this.datosEmpresa).subscribe({
+      next: (response) => {
+        console.log('Datos enviados exitosamente:', response);
+      },
+      error: (error) => {
+        console.error('Error al enviar los datos:', error);
+      },
+      complete: () => {
+        console.log('Solicitud completada.');
+      }
+   });
+   
+    this.productoService.enviarDatosRespondiente(this.datosRespondiente).subscribe(
       (response) => {
-        console.log('Datos combinados enviados exitosamente:', response);
+        console.log('Datos del respondiente enviados exitosamente:', response);
       },
       (error) => {
-        console.error('Error al enviar los datos combinados:', error);
+        console.error('Error al enviar los datos del respondiente:', error);
       }
     );
   }
-  
  
   actualizarProduccion(index: number, nombre: string) {
     this.producciones[index].producto = nombre;
   }
+
 
 
   // AGREGAR FILAS

@@ -13,6 +13,7 @@ export interface encuestas {
 }
 
 export interface DatosEmpresa {
+    id: number;
     nombreEmpresa: string;
     nombreFantasia: string;
     cuit: string;
@@ -23,6 +24,7 @@ export interface DatosEmpresa {
   }
   
   export interface DatosRespondiente {
+    id: number; //hay que agregarselo para hacer las PK Y FK listo.
     nombreApellido: string;
     cargoArea: string;
     tipoTelefono: 'Particular' | 'Corporativo';
