@@ -24,6 +24,8 @@ export class OneComponent implements OnInit {
   servicios: { id: number;  nombre: string; monto_pesos: number; }[] = [];
   
   producciones: produccion[] = [];
+  produccion: any[] = [];  // Aquí tienes los datos de producción, asumo que ya está inicializado
+
   bieness: bienes_insumos[] = [];
   
   servicio_basic: servicios_basicos [] = [];
@@ -55,7 +57,7 @@ export class OneComponent implements OnInit {
  
   constructor(
     private router: Router,
-    private productoService: ServicesService,
+    private oneService: ServicesService,
     private http: HttpClient,
   ) { }
 
@@ -82,7 +84,7 @@ export class OneComponent implements OnInit {
       this.updateStepVisibility();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    this.productoService.enviarDatosEmpresa(this.datosEmpresa).subscribe({
+    this.oneService.enviarDatosEmpresa(this.datosEmpresa).subscribe({
       next: (response) => {
         console.log('Datos enviados exitosamente:', response);
       },
@@ -94,7 +96,7 @@ export class OneComponent implements OnInit {
       }
    });
    
-    this.productoService.enviarDatosRespondiente(this.datosRespondiente).subscribe(
+    this.oneService.enviarDatosRespondiente(this.datosRespondiente).subscribe(
       (response) => {
         console.log('Datos del respondiente enviados exitosamente:', response);
       },
@@ -200,8 +202,18 @@ export class OneComponent implements OnInit {
 
 
 
-
-
+  step2() {
+    // Llama al servicio para enviar los datos al backend
+    this.oneService.enviarDatosProduccion(this.produccion).subscribe(
+      response => {
+        console.log('Datos enviados correctamente', response);
+        // Aquí puedes redirigir o avanzar al siguiente paso si lo deseas
+      },
+      error => {
+        console.error('Error al enviar los datos', error);
+      }
+    );
+  }
 
 
   nextStep() {

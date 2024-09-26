@@ -38,4 +38,8 @@ export class ServicesService {
     return this.http.post(`${this.baseUrl}/create`, encuesta);
   }
 
+  enviarDatosProduccion(produccionData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/produccion`, produccionData);
+  }
+
 }
