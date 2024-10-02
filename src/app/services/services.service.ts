@@ -32,32 +32,49 @@ export class ServicesService {
 
     return this.http.post(`${this.baseUrl}/${idEmpresa}/produccion`, produccionData);
   }
+// Suponiendo que baseUrl es algo como 'http://tuservidor/api'
+
+enviarDatosBienes(idEmpresa: number, bienInsumo: UtilizacionInsumos) {
+  return this.http.post(`${this.baseUrl}/${idEmpresa}/insumosBasicos`, bienInsumo);
+}
+
+enviarDatosServicios(idEmpresa: number, servicioUtilizacion: UtilizacionServicio) {
+  return this.http.post(`${this.baseUrl}/${idEmpresa}/utilizacionServicio`, servicioUtilizacion);
+}
+
+enviarDatosServiciosBasicos(idEmpresa: number, insumosUtilizacion: InsumosBasicos) {
+  return this.http.post(`${this.baseUrl}/${idEmpresa}/utilizacionInsumos`, insumosUtilizacion);
+}
+
+enviarManoDeObra(idEmpresa: number, manoObra: manoDeObra) {
+  return this.http.post(`${this.baseUrl}/${idEmpresa}/manoDeObra`, manoObra);
+}
 
 
-  enviarDatosBienes(bienInsumo: UtilizacionInsumos) {
-    const idEmpresa = bienInsumo.id_empresa;
+  // enviarDatosBienes(bienInsumo: UtilizacionInsumos) {
+  //   const idEmpresa = bienInsumo.id_empresa;
 
-    return this.http.post(`${this.baseUrl}/${idEmpresa}/insumosBasicos`, bienInsumo);
-  }
+  //   return this.http.post(`${this.baseUrl}/${idEmpresa}/insumosBasicos`, bienInsumo);
+  // }
 
-  enviarDatosServicios(servicioUtilizacion: UtilizacionServicio) {
-    const idEmpresa = servicioUtilizacion.id_empresa;
+  // enviarDatosServicios(servicioUtilizacion: UtilizacionServicio) {
+  //   const idEmpresa = servicioUtilizacion.id_empresa;
 
-    return this.http.post(`${this.baseUrl}/${idEmpresa}/utilizacionServicio`, servicioUtilizacion);
-  }
+  //   return this.http.post(`${this.baseUrl}/${idEmpresa}/utilizacionServicio`, servicioUtilizacion);
+  // }
 
-  enviarDatosServiciosBasicos(insumosUtilizacion: InsumosBasicos) {
-    const idEmpresa = insumosUtilizacion.id_empresa;
+  // enviarDatosServiciosBasicos(insumosUtilizacion: InsumosBasicos) {
+  //   const idEmpresa = insumosUtilizacion.id_empresa;
 
-    return this.http.post(`${this.baseUrl}/${idEmpresa}/utilizacionInsumos`, insumosUtilizacion);
-  }
+  //   return this.http.post(`${this.baseUrl}/${idEmpresa}/utilizacionInsumos`, insumosUtilizacion);
+  // }
 
 
-  enviarManoDeObra(manoObra: manoDeObra) {
-    const idEmpresa = manoObra.id_empresa;
+  // enviarManoDeObra(manoObra: manoDeObra) {
+  //   const idEmpresa = manoObra.id_empresa;
 
-    return this.http.post(`${this.baseUrl}/${idEmpresa}/manoDeObra`, manoObra);
-  }
+  //   return this.http.post(`${this.baseUrl}/${idEmpresa}/manoDeObra`, manoObra);
+  // }
 
 
 }

@@ -6,6 +6,7 @@ import { ServicesService } from 'src/app/services/services.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-one',
@@ -241,69 +242,50 @@ agregarNuevaFila3() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
+
+    
     step3() {
       // Asigna id_empresa a cada fila de las tablas antes de enviar
       this.bieness.forEach(insumo => insumo.id_empresa = this.idEmpresa);
-      this.utilacion_Servicio.forEach(servicio => servicio.id_empresa = this.idEmpresa);
-      this.insumos_Basicos.forEach(insumoBasico => insumoBasico.id_empresa = this.idEmpresa);
-      this.mano_Obra.forEach(manoObra => manoObra.id_empresa = this.idEmpresa);
+      this.servicioss.forEach(servicio => servicio.id_empresa = this.idEmpresa);
+      this.servicio_basic.forEach(insumoBasico => insumoBasico.id_empresa = this.idEmpresa);
+      this.remuneraciones_cargas.forEach(manoObra => manoObra.id_empresa = this.idEmpresa);
     
-      // Enviar utilacion_Insumo (Insumos)
-      this.bieness.forEach((insumo) => {
-        this.oneService.enviarDatosBienes(insumo).subscribe(
-          response => {
-            console.log('Insumos enviados correctamente', response);
-          },
-          error => {
-            console.error('Error al enviar los insumos', error);
-          }
-        );
-      });
+      // Crea un arreglo de observables para cada tipo de dato que se va a enviar
+      const bienesRequests = this.bieness.map(insumo =>
+        this.oneService.enviarDatosBienes(this.idEmpresa, insumo)
+      );
+      const serviciosRequests = this.servicioss.map(servicio =>
+        this.oneService.enviarDatosServicios(this.idEmpresa, servicio)
+      );
+      const insumosBasicosRequests = this.servicio_basic.map(insumoBasico =>
+        this.oneService.enviarDatosServiciosBasicos(this.idEmpresa, insumoBasico)
+      );
+      const manoObraRequests = this.remuneraciones_cargas.map(manoObra =>
+        this.oneService.enviarManoDeObra(this.idEmpresa, manoObra)
+      );
     
-      // Enviar utilacion_Servicio (Servicios)
-      this.servicioss.forEach((servicio) => {
-        this.oneService.enviarDatosServicios(servicio).subscribe(
-          response => {
-            console.log('Servicios enviados correctamente', response);
-          },
-          error => {
-            console.error('Error al enviar los servicios', error);
-          }
-        );
-      });
+      // Combina todas las solicitudes en un solo observable
+      const allRequests = forkJoin([
+        ...bienesRequests,
+        ...serviciosRequests,
+        ...insumosBasicosRequests,
+        ...manoObraRequests
+      ]);
     
-      // Enviar insumos_Basicos (Servicios Básicos)
-      this.servicio_basic.forEach((insumoBasico) => {
-        this.oneService.enviarDatosServiciosBasicos(insumoBasico).subscribe(
-          response => {
-            console.log('Insumos básicos enviados correctamente', response);
-          },
-          error => {
-            console.error('Error al enviar los insumos básicos', error);
-          }
-        );
-      });
-    
-      // Enviar mano_Obra (Remuneraciones y cargas)
-      this.remuneraciones_cargas.forEach((manoObra) => {
-        this.oneService.enviarManoDeObra(manoObra).subscribe(
-          response => {
-            console.log('Remuneraciones y cargas enviadas correctamente', response);
-          },
-          error => {
-            console.error('Error al enviar las remuneraciones y cargas', error);
-          }
-        );
-      });
-    
-      // Si todo va bien, pasar al siguiente paso
-      if (this.currentStep < 10) {
-        this.currentStep++;
-        this.updateStepVisibility();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }
+      allRequests.subscribe({
+        next: responses => {
+          console.log('Todos los datos enviados correctamente', responses);
+          // Si todo va bien, pasar al siguiente paso
+           this.router.navigate(['/two', this.idEmpresa]);
 
+        },
+        error: error => {
+          console.error('Error al enviar los datos:', error);
+        }
+      });
+    }
+    
   nextStep() {
     if (this.currentStep < 10) {
       this.currentStep++;
@@ -314,13 +296,13 @@ agregarNuevaFila3() {
 
   
 
-  // previousStep() {
-  //   if (this.currentStep > 1) {
-  //     this.currentStep--;
-  //     this.updateStepVisibility();
-  //     window.scrollTo({ top: 0, behavior: 'smooth' });
-  //   }
-  // }
+  previousStep() {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+      this.updateStepVisibility();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
 
   // nextStepper() {
   //   this.router.navigate(['/two']);
