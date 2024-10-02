@@ -15,4 +15,5 @@
     saveEncuesta(encuesta: encuestas): Observable<any> {
       return this.http.post(this.apiUrl, encuesta);
     }
+
   }

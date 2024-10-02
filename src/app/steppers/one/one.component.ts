@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 // import { bienes, datos_empresas, domicilio_industrial, email_respondente, nombres_fantasia, opciones_servicios, produccion, productos, respondente, servicios, telefonos_empresa, telefonos_repondente, unidad_medidas } from 'src/app/Interfaces/models';
 import { bienes_insumos, produccion, unidad_medidas, servicios, servicios_basicos, remuneraciones_cargas, DatosEmpresa, DatosRespondiente  } from 'src/app/Interfaces/models';
 import { ServicesService } from 'src/app/services/services.service';
@@ -35,6 +35,12 @@ export class OneComponent implements OnInit {
   remuneracion_carga = remuneraciones_cargas;
 
 
+
+//Recibir id_empresa de tabla encuestas
+idEmpresa: number = 0 ;
+
+
+
   datosEmpresa: DatosEmpresa = {
     id : 0,
     nombreEmpresa: '',
@@ -43,7 +49,8 @@ export class OneComponent implements OnInit {
     direccionEstablecimiento: '',
     direccionAdministracion: '',
     localidadEstablecimiento: '',
-    actividadPrincipal: ''
+    actividadPrincipal: '',
+
   };
 
   datosRespondiente: DatosRespondiente = {
@@ -57,6 +64,7 @@ export class OneComponent implements OnInit {
  
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private oneService: ServicesService,
     private http: HttpClient,
   ) { }
@@ -68,7 +76,8 @@ export class OneComponent implements OnInit {
     this.agregarNuevaFila3(); // Agregar una fila inicial
     this.agregarNuevaFilaServicio();
     this. agregarNuevaFilaServicioBasico()
- 
+    this.idEmpresa = Number(this.route.snapshot.paramMap.get('id'));
+    console.log('ID Empresa recibido:', this.idEmpresa);
   }
 
   onSearchChange(term: string) {
@@ -76,35 +85,6 @@ export class OneComponent implements OnInit {
   }
 
 
-  EnviarS1() {      
-    console.log(this.datosEmpresa); // Verificar datos enviados
-
-    if (this.currentStep < 10) {
-      this.currentStep++;
-      this.updateStepVisibility();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    this.oneService.enviarDatosEmpresa(this.datosEmpresa).subscribe({
-      next: (response) => {
-        console.log('Datos enviados exitosamente:', response);
-      },
-      error: (error) => {
-        console.error('Error al enviar los datos:', error);
-      },
-      complete: () => {
-        console.log('Solicitud completada.');
-      }
-   });
-   
-    this.oneService.enviarDatosRespondiente(this.datosRespondiente).subscribe(
-      (response) => {
-        console.log('Datos del respondiente enviados exitosamente:', response);
-      },
-      (error) => {
-        console.error('Error al enviar los datos del respondiente:', error);
-      }
-    );
-  }
  
   actualizarProduccion(index: number, nombre: string) {
     this.producciones[index].producto = nombre;
@@ -198,22 +178,70 @@ export class OneComponent implements OnInit {
   }
   
 
+        // this.router.navigate(['/one', idEmpresa]);
 
 
+    EnviarS1() {      
+      console.log(this.datosEmpresa); // Verificar datos enviados
+    
+      // Agrega el idEmpresa a los datos que vas a enviar
+      this.datosEmpresa.id_empresa = this.idEmpresa;
+      this.datosRespondiente.id_empresa = this.idEmpresa;
+    
+      // Enviar datos de la empresa
+      this.oneService.enviarDatosEmpresa(this.datosEmpresa).subscribe({
+        next: (response) => {
+          console.log('Datos enviados exitosamente:', response);
+          if (this.currentStep < 10) {
+            this.currentStep++;
+            this.updateStepVisibility();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }    
+        },
+        error: (error) => {
+          console.error('Error al enviar los datos:', error);
+        },
+        complete: () => {
+          console.log('Solicitud completada.');
+        }
+      });
+    
+      // Enviar datos del respondiente
+      this.oneService.enviarDatosRespondiente(this.datosRespondiente).subscribe(
+        (response) => {
+          console.log('Datos del respondiente enviados exitosamente:', response);
+        },
+        (error) => {
+          console.error('Error al enviar los datos del respondiente:', error);
+        }
+      );
+    }
+ 
 
-
-  step2() {
-    // Llama al servicio para enviar los datos al backend
-    this.oneService.enviarDatosProduccion(this.produccion).subscribe(
-      response => {
-        console.log('Datos enviados correctamente', response);
-        // Aquí puedes redirigir o avanzar al siguiente paso si lo deseas
-      },
-      error => {
-        console.error('Error al enviar los datos', error);
+    step2() {
+      // Asigna id_empresa a cada producción
+      this.producciones.forEach(p => p.id_empresa = this.idEmpresa);
+    
+      // Enviar cada producción por separado
+      this.producciones.forEach((produccion) => {
+        this.oneService.enviarDatosProduccion(produccion).subscribe(
+          response => {
+            console.log('Producción enviada correctamente', response);
+          },
+          error => {
+            console.error('Error al enviar la producción', error);
+          }
+        );
+      });
+    
+      // Si todo va bien, pasar al siguiente step
+      if (this.currentStep < 10) {
+        this.currentStep++;
+        this.updateStepVisibility();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-    );
-  }
+    }
+    
 
 
   nextStep() {

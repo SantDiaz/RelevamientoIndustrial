@@ -24,18 +24,27 @@ export class HomeComponent implements OnInit {
     observaciones_analista: '',
   };
 
+  idEmpresa: number = 0 ;
+
+
   constructor(private encuestaService: EncuestaService, private router: Router) { }  // Inject the service
 
   ngOnInit(): void { }
 
+
   onSubmit() {
 
-    
+
     this.encuestaService.saveEncuesta(this.encuesta).subscribe({
       next: (response) => {
         console.log('Encuesta saved successfully:', response);
-        this.router.navigate(['/one']); // Redirect or handle success
-      },  
+        
+        // Suponiendo que el id_empresa viene en el response
+        const idEmpresa = response.id_empresa;
+
+        // Redirigir al componente 'oneComponent' con id_empresa como parámetro
+        this.router.navigate(['/one', idEmpresa]);
+      },
       error: (error) => {
         console.error('Error saving encuesta:', error);
       }

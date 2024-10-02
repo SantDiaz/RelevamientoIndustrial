@@ -19,7 +19,7 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'one',
+    path: 'one/:id',
     component: OneComponent
   },
   {
@@ -34,7 +34,7 @@ const routes: Routes = [
     path: 'four',
     component: FourComponent
   },
-  {
+  { 
     path: 'reg',
     component: RegisterComponent
   },

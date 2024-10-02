@@ -1,6 +1,7 @@
 export interface encuestas {
-    id_operativo: number;
+
     id_empresa: number;
+    id_operativo: number;
     ingresador: string;
     analista: string;
     fecha_entrega : Date;
@@ -21,6 +22,8 @@ export interface DatosEmpresa {
     direccionAdministracion: string;
     localidadEstablecimiento: string;
     actividadPrincipal: string;
+    id_empresa?: number;  // Agregar id_empresa
+
   }
   
   export interface DatosRespondiente {
@@ -30,6 +33,8 @@ export interface DatosEmpresa {
     tipoTelefono: 'Particular' | 'Corporativo';
     numeroTelefono: number;
     email: string;
+    id_empresa?: number;  // Agregar id_empresa
+
   }
 
 
@@ -58,12 +63,17 @@ export interface produccion {
     null;
     mercado_interno: number | null;
     mercado_externo: number | null;
+    id_empresa?: number;  // Agregar id_empresa
+    observaciones?: string;
+
 }
 
 export interface servicios {
     id: number;
     nombre: string;
     monto_pesos: number;
+    id_empresa?: number;  // Agregar id_empresa
+
 }
 
 export interface servicios_basicos {
@@ -71,6 +81,8 @@ export interface servicios_basicos {
     tipo:  '4.9. Energía eléctrica consumida (kw/h)' | '4.10. GasOil consumido (litros)' | '4.11. Gas consumido (m3)' | '4.12. Agua consumida (Litros/m3)';
     cantidad: number;
     monto_pesos: number;
+    id_empresa?: number;  // Agregar id_empresa
+
 }
 
 
