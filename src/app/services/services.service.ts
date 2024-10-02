@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {   DatosEmpresa, DatosRespondiente, InsumosBasicos, manoDeObra, produccion, remuneraciones_cargas, servicios_basicos, UtilizacionInsumos, UtilizacionServicio } from 'src/app/Interfaces/models';
+import {   cantidadTrabajadores, DatosEmpresa, DatosRespondiente, horasExtras, horasNormales, InsumosBasicos, manoDeObra, produccion, remuneraciones_cargas, servicios_basicos, UtilizacionInsumos, UtilizacionServicio } from 'src/app/Interfaces/models';
 
 
 @Injectable({
@@ -9,6 +9,7 @@ import {   DatosEmpresa, DatosRespondiente, InsumosBasicos, manoDeObra, producci
 })
 export class ServicesService {
   private baseUrl = 'http://localhost:8080/api'; // Assuming your Spring Boot app runs on port 8080
+  private baseUrl2 = 'http://localhost:8080/apiTwo'; // Assuming your Spring Boot app runs on port 8080
 
   idEmpresa: number = 0;
 
@@ -51,30 +52,19 @@ enviarManoDeObra(idEmpresa: number, manoObra: manoDeObra) {
 }
 
 
-  // enviarDatosBienes(bienInsumo: UtilizacionInsumos) {
-  //   const idEmpresa = bienInsumo.id_empresa;
+// PASO 2
+enviarCantidadTrabajadores(idEmpresa: number, cantidadTrabajadoresData: cantidadTrabajadores): Observable<cantidadTrabajadores> {
+  return this.http.post<cantidadTrabajadores>(`${this.baseUrl2}/${idEmpresa}/cantidadTrabajadores`, cantidadTrabajadoresData);
+}
 
-  //   return this.http.post(`${this.baseUrl}/${idEmpresa}/insumosBasicos`, bienInsumo);
-  // }
+// Enviar datos de horas normales
+enviarHorasNormales(idEmpresa: number, horasNormalesData: horasNormales): Observable<horasNormales> {
+  return this.http.post<horasNormales>(`${this.baseUrl2}/${idEmpresa}/horasNormales`, horasNormalesData);
+}
 
-  // enviarDatosServicios(servicioUtilizacion: UtilizacionServicio) {
-  //   const idEmpresa = servicioUtilizacion.id_empresa;
-
-  //   return this.http.post(`${this.baseUrl}/${idEmpresa}/utilizacionServicio`, servicioUtilizacion);
-  // }
-
-  // enviarDatosServiciosBasicos(insumosUtilizacion: InsumosBasicos) {
-  //   const idEmpresa = insumosUtilizacion.id_empresa;
-
-  //   return this.http.post(`${this.baseUrl}/${idEmpresa}/utilizacionInsumos`, insumosUtilizacion);
-  // }
-
-
-  // enviarManoDeObra(manoObra: manoDeObra) {
-  //   const idEmpresa = manoObra.id_empresa;
-
-  //   return this.http.post(`${this.baseUrl}/${idEmpresa}/manoDeObra`, manoObra);
-  // }
-
+// Enviar datos de horas extras
+enviarHorasExtras(idEmpresa: number, horasExtrasData: horasExtras): Observable<horasExtras> {
+  return this.http.post<horasExtras>(`${this.baseUrl2}/${idEmpresa}/horasExtras`, horasExtrasData);
+}
 
 }

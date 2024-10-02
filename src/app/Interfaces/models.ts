@@ -115,46 +115,49 @@ export interface InsumosBasicos {
 }
 
 
-    
-    
+
+
 
 export interface manoDeObra {
-    id: number;
-    tipo:   '4.13. Sueldos y Jornales Brutas totales, incluido SAC y horas extras' | '4.14. Cargas Sociales, incluido A.R.T.' ;
-    monto_pesos: number;
-    id_empresa?: number;  // Agregar id_empresa
+  id: number;
+  tipo:   '4.13. Sueldos y Jornales Brutas totales, incluido SAC y horas extras' | '4.14. Cargas Sociales, incluido A.R.T.' ;
+  monto_pesos: number;
+  id_empresa?: number;  // Agregar id_empresa
 }
 
+export interface cantidadTrabajadores {
+    id: number;
+    id_empresa?: number;  // Agregar id_empresa
+    plantaAfPermanente: string;
+    plantaAfContratado: string;
+    plantaResto: string;
+    temporalAfectado: string;
+    temporalResto: string;
+    periodo: string;
+}
 
-// export interface UtilizacionInsumos {
-//   id: number;
-//   nombreInsumos : string;  
-//   unidadDeMedida: string;
-//   montoTotal : number;
-//   id_empresa?: number;  // Agregar id_empresa
-// }
-// export interface UtilizacionServicio {
-//   id: number;
-//   nombre : string;  
-//   montoTotal : number;
-//   id_empresa?: number;  // Agregar id_empresa
-// }
+export interface horasNormales {
+  id: number;
+  id_empresa?: number;  // Agregar id_empresa
+  plantaAfPermanente: string;
+  plantaAfContratado: string;
+  plantaResto: string;
+  temporalAfectado: string;
+  temporalResto: string;
+  periodo: string;
+}
 
-// export interface InsumosBasicos {
-//   id: number;
-//   nombreDelServicio : string;  
-//   cantidadUtilizada : number;
-//   montoTotal : number;
-//   id_empresa?: number;  // Agregar id_empresa
-// }
+export interface horasExtras {
+  id: number;
+  id_empresa?: number;  // Agregar id_empresa
+  plantaAfPermanente: string;
+  plantaAfContratado: string;
+  plantaResto: string;
+  temporalAfectado: string;
+  temporalResto: string;
+  periodo: string;
+}
 
-
-// export interface manoDeObra {
-//   id: number;
-//   tipoManoDeObra : string;  
-//   montoTotal : number;
-//   id_empresa?: number;  // Agregar id_empresa
-// }
 
 
 // constantes
@@ -195,17 +198,6 @@ export const unidad_medidas = [
     null
   ];
 
-// export interface personal {
-//     id: number;
-//     id_modulo: number;
-//     duracion: 'PLANTA' | 'TEMPORARIO';
-//     afectado: 'AFECTADO' | 'NO AFECTADO';
-//     permanente_contratado: 'PERMANENTE' | 'CONTRATADA' | 'NO APLICA'   ;
-//     cantidad_trabajadores : number;
-//     horas_normales : number;
-//     horas_extras : number;
-//     periodo: string;
-// }
 
 // export interface operativos {
 //     id: number;

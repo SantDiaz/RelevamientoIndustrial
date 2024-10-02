@@ -107,31 +107,30 @@
           <th class="border border-gray-300 p-2 text-center" colspan="2">PERSONAL TEMPORARIO</th>
         </tr>
         <tr>
-          <th class="border border-gray-300 p-2 text-center">a - Planta permanente</th>
-          <th class="border border-gray-300 p-2 text-center">b - Planta contratada</th>
-          <th class="border border-gray-300 p-2 text-center">c - Resto del personal excluido del proceso productivo</th>
-          <th class="border border-gray-300 p-2 text-center">Personal afectado al proceso</th>
-          <th class="border border-gray-300 p-2 text-center">Resto del personal excluido del proceso productivo</th>
+          <th class="border border-gray-300 p-2 text-center">Planta permanente</th>
+          <th class="border border-gray-300 p-2 text-center">Planta contratada</th>
+          <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+          <th class="border border-gray-300 p-2 text-center">Personal afectado</th>
+          <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td class="border border-gray-300 p-2">
-            <input type="text" class="w-full border border-gray-300 p-1">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.plantaAfPermanente">
           </td>
           <td class="border border-gray-300 p-2">
-            <input type="text" class="w-full border border-gray-300 p-1">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.plantaAfContratado">
           </td>
           <td class="border border-gray-300 p-2">
-            <input type="text" class="w-full border border-gray-300 p-1">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.plantaResto">
           </td>
           <td class="border border-gray-300 p-2">
-            <input type="text" class="w-full border border-gray-300 p-1">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.temporalAfectado">
           </td>
           <td class="border border-gray-300 p-2">
-            <input type="text" class="w-full border border-gray-300 p-1">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="cantidadTrabajadores.temporalResto">
           </td>
-     
         </tr>
       </tbody>
     </table>
@@ -153,46 +152,85 @@
     <strong>IMPORTANTE:</strong> deberá consignarse la cantidad de horas efectivamente realizadas independientemente de la cantidad que se considere para su liquidación (Ejemplo: 1 hora extra al 200% debe declararse como 1 hora y no como 2 horas).
   </p>
 
-  <div class="overflow-x-auto">
-    <table class="min-w-full border border-gray-300">
+
+  <div class="p-4">
+    <th class="border border-gray-300 p-2 text-center" colspan="3">HORAS NORMALES</th>
+
+    <table class="table-auto border-collapse border border-gray-300 w-full">
       <thead>
         <tr>
-          <th class="border border-gray-300 p-2 text-center bg-gray-100"></th>
-          <th colspan="2" class="border border-gray-300 p-2 text-center bg-gray-100">PERSONAL DE PLANTA</th>
-          <th colspan="2" class="border border-gray-300 p-2 text-center bg-gray-100">PERSONAL TEMPORARIO</th>
+          <th class="border border-gray-300 p-2 text-center" colspan="3">PERSONAL DE PLANTA</th>
+          <th class="border border-gray-300 p-2 text-center" colspan="2">PERSONAL TEMPORARIO</th>
         </tr>
         <tr>
-          <th class="border border-gray-300 p-2 bg-gray-100"></th>
-          <th class="border border-gray-300 p-2 text-center bg-gray-100">Personal afectado al proceso</th>
-          <th class="border border-gray-300 p-2 text-center bg-gray-100">Resto del personal excluido del proceso productivo</th>
-          <th class="border border-gray-300 p-2 text-center bg-gray-100">Personal afectado al proceso</th>
-          <th class="border border-gray-300 p-2 text-center bg-gray-100">Resto del personal excluido del proceso productivo</th>
-        </tr>
-        <tr>
-          <th class="border border-gray-300 p-2 bg-gray-100">6. HORAS NORMALES</th>
-          <td class="border border-gray-300 p-2"><input type="text" class="w-full border-gray-300" /></td>
-          <td class="border border-gray-300 p-2"><input type="text" class="w-full border-gray-300" /></td>
-          <td class="border border-gray-300 p-2"><input type="text" class="w-full border-gray-300" /></td>
-          <td class="border border-gray-300 p-2"><input type="text" class="w-full border-gray-300" /></td>
-        </tr>
-        <tr>
-          <th class="border border-gray-300 p-2 bg-gray-100">7. HORAS EXTRAS</th>
-          <td class="border border-gray-300 p-2"><input type="text" class="w-full border-gray-300" /></td>
-          <td class="border border-gray-300 p-2"><input type="text" class="w-full border-gray-300" /></td>
-          <td class="border border-gray-300 p-2"><input type="text" class="w-full border-gray-300" /></td>
-          <td class="border border-gray-300 p-2"><input type="text" class="w-full border-gray-300" /></td>
-        </tr>
-        <tr>
-          <th class="border border-gray-300 p-2 bg-gray-100">8. TOTAL DE HORAS</th>
-          <td class="border border-gray-300 p-2"><input type="text" class="w-full border-gray-300" /></td>
-          <td class="border border-gray-300 p-2"><input type="text" class="w-full border-gray-300" /></td>
-          <td class="border border-gray-300 p-2"><input type="text" class="w-full border-gray-300" /></td>
-          <td class="border border-gray-300 p-2"><input type="text" class="w-full border-gray-300" /></td>
+          <th class="border border-gray-300 p-2 text-center">Planta permanente</th>
+          <th class="border border-gray-300 p-2 text-center">Planta contratada</th>
+          <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+          <th class="border border-gray-300 p-2 text-center">Personal afectado</th>
+          <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
         </tr>
       </thead>
+      <tbody>
+        <tr>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.plantaAfPermanente">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.plantaAfContratado">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.plantaResto">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.temporalAfectado">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasNormales.temporalResto">
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
 
+  
+  <div class="p-4">
+    <th class="border border-gray-300 p-2 text-center" colspan="3">HORAS EXTRAS</th>
+
+    <table class="table-auto border-collapse border border-gray-300 w-full">
+      <thead>
+        <tr>
+          <th class="border border-gray-300 p-2 text-center" colspan="3">PERSONAL DE PLANTA</th>
+          <th class="border border-gray-300 p-2 text-center" colspan="2">PERSONAL TEMPORARIO</th>
+        </tr>
+        <tr>
+          <th class="border border-gray-300 p-2 text-center">Planta permanente</th>
+          <th class="border border-gray-300 p-2 text-center">Planta contratada</th>
+          <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+          <th class="border border-gray-300 p-2 text-center">Personal afectado</th>
+          <th class="border border-gray-300 p-2 text-center">Resto del personal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.plantaAfPermanente">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.plantaAfContratado">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.plantaResto">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.temporalAfectado">
+          </td>
+          <td class="border border-gray-300 p-2">
+            <input type="text" class="w-full border border-gray-300 p-1" [(ngModel)]="horasExtras.temporalResto">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div class="mt-4">
     <textarea class="w-full border border-gray-300 p-2" rows="3" placeholder="Si en alguna pregunta tuvo problemas para completar la respuesta o si tiene alguna observación que hacer, por favor utilice este espacio:"></textarea>
   </div>
@@ -204,7 +242,7 @@
 </div>
 <br>
 <div class="flex justify-center">
-  <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded" (click)="nextStep()">Siguiente</button>
+  <button type="button" class="bg-[#FF8300] text-white px-4 py-2 rounded" (click)="Step1()">Siguiente</button>
 </div>
 </div>
 
