@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {  DatosEmpresa, DatosRespondiente, produccion } from 'src/app/Interfaces/models';
+import {   DatosEmpresa, DatosRespondiente, InsumosBasicos, manoDeObra, produccion, remuneraciones_cargas, servicios_basicos, UtilizacionInsumos, UtilizacionServicio } from 'src/app/Interfaces/models';
 
 
 @Injectable({
@@ -33,16 +33,31 @@ export class ServicesService {
     return this.http.post(`${this.baseUrl}/${idEmpresa}/produccion`, produccionData);
   }
 
- // buscarProducto(nombre: string): Observable<productos> {
-  //   return this.http.get<productos>(`${this.baseUrl}/productos?nombre=${nombre}`);
-  // }
 
-  // agregarProducto(producto: productos): Observable<productos> {
-  //   return this.http.post<productos>(`${this.baseUrl}/productos`, producto);
-  // }
+  enviarDatosBienes(bienInsumo: UtilizacionInsumos) {
+    const idEmpresa = bienInsumo.id_empresa;
 
-  // agregarProduccion(produccion: produccion): Observable<produccion> {
-  //   return this.http.post<produccion>(`${this.baseUrl}/produccion`, produccion);
-  // }
+    return this.http.post(`${this.baseUrl}/${idEmpresa}/insumosBasicos`, bienInsumo);
+  }
+
+  enviarDatosServicios(servicioUtilizacion: UtilizacionServicio) {
+    const idEmpresa = servicioUtilizacion.id_empresa;
+
+    return this.http.post(`${this.baseUrl}/${idEmpresa}/utilizacionServicio`, servicioUtilizacion);
+  }
+
+  enviarDatosServiciosBasicos(insumosUtilizacion: InsumosBasicos) {
+    const idEmpresa = insumosUtilizacion.id_empresa;
+
+    return this.http.post(`${this.baseUrl}/${idEmpresa}/utilizacionInsumos`, insumosUtilizacion);
+  }
+
+
+  enviarManoDeObra(manoObra: manoDeObra) {
+    const idEmpresa = manoObra.id_empresa;
+
+    return this.http.post(`${this.baseUrl}/${idEmpresa}/manoDeObra`, manoObra);
+  }
+
 
 }

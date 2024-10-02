@@ -67,8 +67,37 @@ export interface produccion {
     observaciones?: string;
 
 }
+export interface UtilizacionInsumos {
+  id: number;
+  producto: string;
+  unidad_medida:  
+  'METRO (m)' | 
+  'METRO CUADRADO (m2)' | 
+  'METRO CÚBICO (m3)' | 
+  'CENTÍMETRO (cm)' | 
+  'CENTÍMETRO CUADRADO (cm2)' | 
+  'CENTÍMETRO CÚBICO (cm3)' | 
+  'KILOGRAMOS (kg)' | 
+  'ONZA (oz)' | 
+  'TONELADA (tn)' | 
+  'QUINTAL (q)' | 
+  'LITROS (lts)' | 
+  'HECTOLITROS (hlts)' | 
+  'UNIDADES (u)' | 
+  'DOCENA (d)' | 
+  'DECENA (dc)' | 
+  'PACKS (pk)' | 
+  'PARES (pr)' | 
+  'OTRA UNIDAD' | 
+  null;
+  cantidad: number;
+    monto_pesos: number;
+    id_empresa?: number; // Add this line
 
-export interface servicios {
+}
+
+
+export interface UtilizacionServicio {
     id: number;
     nombre: string;
     monto_pesos: number;
@@ -76,7 +105,7 @@ export interface servicios {
 
 }
 
-export interface servicios_basicos {
+export interface InsumosBasicos {
     id: number;
     tipo:  '4.9. Energía eléctrica consumida (kw/h)' | '4.10. GasOil consumido (litros)' | '4.11. Gas consumido (m3)' | '4.12. Agua consumida (Litros/m3)';
     cantidad: number;
@@ -89,39 +118,43 @@ export interface servicios_basicos {
     
     
 
-export interface remuneraciones_cargas {
+export interface manoDeObra {
     id: number;
     tipo:   '4.13. Sueldos y Jornales Brutas totales, incluido SAC y horas extras' | '4.14. Cargas Sociales, incluido A.R.T.' ;
     monto_pesos: number;
+    id_empresa?: number;  // Agregar id_empresa
 }
 
-export interface bienes_insumos {
-    id: number;
-    producto: string;
-    unidad_medida:  
-    'METRO (m)' | 
-    'METRO CUADRADO (m2)' | 
-    'METRO CÚBICO (m3)' | 
-    'CENTÍMETRO (cm)' | 
-    'CENTÍMETRO CUADRADO (cm2)' | 
-    'CENTÍMETRO CÚBICO (cm3)' | 
-    'KILOGRAMOS (kg)' | 
-    'ONZA (oz)' | 
-    'TONELADA (tn)' | 
-    'QUINTAL (q)' | 
-    'LITROS (lts)' | 
-    'HECTOLITROS (hlts)' | 
-    'UNIDADES (u)' | 
-    'DOCENA (d)' | 
-    'DECENA (dc)' | 
-    'PACKS (pk)' | 
-    'PARES (pr)' | 
-    'OTRA UNIDAD' | 
-    null;
-    cantidad: number;
-      monto_pesos: number;
-}
 
+// export interface UtilizacionInsumos {
+//   id: number;
+//   nombreInsumos : string;  
+//   unidadDeMedida: string;
+//   montoTotal : number;
+//   id_empresa?: number;  // Agregar id_empresa
+// }
+// export interface UtilizacionServicio {
+//   id: number;
+//   nombre : string;  
+//   montoTotal : number;
+//   id_empresa?: number;  // Agregar id_empresa
+// }
+
+// export interface InsumosBasicos {
+//   id: number;
+//   nombreDelServicio : string;  
+//   cantidadUtilizada : number;
+//   montoTotal : number;
+//   id_empresa?: number;  // Agregar id_empresa
+// }
+
+
+// export interface manoDeObra {
+//   id: number;
+//   tipoManoDeObra : string;  
+//   montoTotal : number;
+//   id_empresa?: number;  // Agregar id_empresa
+// }
 
 
 // constantes

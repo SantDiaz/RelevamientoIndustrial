@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 // import { bienes, datos_empresas, domicilio_industrial, email_respondente, nombres_fantasia, opciones_servicios, produccion, productos, respondente, servicios, telefonos_empresa, telefonos_repondente, unidad_medidas } from 'src/app/Interfaces/models';
-import { bienes_insumos, produccion, unidad_medidas, servicios, servicios_basicos, remuneraciones_cargas, DatosEmpresa, DatosRespondiente  } from 'src/app/Interfaces/models';
+import {  produccion, unidad_medidas, servicios_basicos, remuneraciones_cargas, DatosEmpresa, DatosRespondiente, UtilizacionInsumos, UtilizacionServicio, InsumosBasicos, manoDeObra  } from 'src/app/Interfaces/models';
 import { ServicesService } from 'src/app/services/services.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -20,22 +20,22 @@ export class OneComponent implements OnInit {
   
   private searchTermSubject = new Subject<string>();
   
-  searchTerm: string = '';  
   servicios: { id: number;  nombre: string; monto_pesos: number; }[] = [];
   
   producciones: produccion[] = [];
   produccion: any[] = [];  // Aquí tienes los datos de producción, asumo que ya está inicializado
 
-  bieness: bienes_insumos[] = [];
-  
-  servicio_basic: servicios_basicos [] = [];
+  bieness: UtilizacionInsumos[] = [];
+  servicioss: UtilizacionServicio[] = [];
+  servicio_basic: InsumosBasicos [] = [];
   servicio_basico = servicios_basicos;
-
-  remuneraciones_cargas : remuneraciones_cargas[] = [];
+  remuneraciones_cargas : manoDeObra[] = [];
   remuneracion_carga = remuneraciones_cargas;
 
-
-
+  // step3
+  utilacion_Servicio: UtilizacionServicio[] = [];
+  insumos_Basicos: InsumosBasicos [] = [];
+  mano_Obra :manoDeObra [] = [];
 //Recibir id_empresa de tabla encuestas
 idEmpresa: number = 0 ;
 
@@ -107,23 +107,23 @@ idEmpresa: number = 0 ;
 
   
 
-  agregarNuevaFila3() {
-    const nuevaBienes: bienes_insumos = {
-      id: 0,
-      producto: '',
-      unidad_medida: null,
-      monto_pesos: 0,
-      cantidad: 0,
-    };
-    this.bieness.push(nuevaBienes);
-  }
+agregarNuevaFila3() {
+  const nuevaBienes: UtilizacionInsumos = {
+    id: 0,
+    producto: '',
+    unidad_medida: null,
+    cantidad: 0,
+    monto_pesos: 0,
+  };
+  this.bieness.push(nuevaBienes);
+}
 
   agregarNuevaFilaServicio() {
     this.servicios.push({ id: 0,  nombre: '', monto_pesos: 0 });
   }
 
   agregarNuevaFilaServicioBasico(){
-    const nuevaServicioBasico: servicios_basicos = {
+    const nuevaServicioBasico: InsumosBasicos = {
       id: 0,
       tipo: '4.9. Energía eléctrica consumida (kw/h)',
       cantidad: 0,
@@ -133,7 +133,7 @@ idEmpresa: number = 0 ;
   }
 
   agregarNuevaFilaRemuneracionCarga(){
-    const nuevaRemuneracionCarga: remuneraciones_cargas = {
+    const nuevaRemuneracionCarga: manoDeObra = {
       id: 0,
       tipo: '4.13. Sueldos y Jornales Brutas totales, incluido SAC y horas extras',
       monto_pesos: 0,
@@ -241,8 +241,68 @@ idEmpresa: number = 0 ;
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
+    step3() {
+      // Asigna id_empresa a cada fila de las tablas antes de enviar
+      this.bieness.forEach(insumo => insumo.id_empresa = this.idEmpresa);
+      this.utilacion_Servicio.forEach(servicio => servicio.id_empresa = this.idEmpresa);
+      this.insumos_Basicos.forEach(insumoBasico => insumoBasico.id_empresa = this.idEmpresa);
+      this.mano_Obra.forEach(manoObra => manoObra.id_empresa = this.idEmpresa);
     
-
+      // Enviar utilacion_Insumo (Insumos)
+      this.bieness.forEach((insumo) => {
+        this.oneService.enviarDatosBienes(insumo).subscribe(
+          response => {
+            console.log('Insumos enviados correctamente', response);
+          },
+          error => {
+            console.error('Error al enviar los insumos', error);
+          }
+        );
+      });
+    
+      // Enviar utilacion_Servicio (Servicios)
+      this.servicioss.forEach((servicio) => {
+        this.oneService.enviarDatosServicios(servicio).subscribe(
+          response => {
+            console.log('Servicios enviados correctamente', response);
+          },
+          error => {
+            console.error('Error al enviar los servicios', error);
+          }
+        );
+      });
+    
+      // Enviar insumos_Basicos (Servicios Básicos)
+      this.servicio_basic.forEach((insumoBasico) => {
+        this.oneService.enviarDatosServiciosBasicos(insumoBasico).subscribe(
+          response => {
+            console.log('Insumos básicos enviados correctamente', response);
+          },
+          error => {
+            console.error('Error al enviar los insumos básicos', error);
+          }
+        );
+      });
+    
+      // Enviar mano_Obra (Remuneraciones y cargas)
+      this.remuneraciones_cargas.forEach((manoObra) => {
+        this.oneService.enviarManoDeObra(manoObra).subscribe(
+          response => {
+            console.log('Remuneraciones y cargas enviadas correctamente', response);
+          },
+          error => {
+            console.error('Error al enviar las remuneraciones y cargas', error);
+          }
+        );
+      });
+    
+      // Si todo va bien, pasar al siguiente paso
+      if (this.currentStep < 10) {
+        this.currentStep++;
+        this.updateStepVisibility();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
 
   nextStep() {
     if (this.currentStep < 10) {
@@ -254,18 +314,18 @@ idEmpresa: number = 0 ;
 
   
 
-  previousStep() {
-    if (this.currentStep > 1) {
-      this.currentStep--;
-      this.updateStepVisibility();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }
+  // previousStep() {
+  //   if (this.currentStep > 1) {
+  //     this.currentStep--;
+  //     this.updateStepVisibility();
+  //     window.scrollTo({ top: 0, behavior: 'smooth' });
+  //   }
+  // }
 
-  nextStepper() {
-    this.router.navigate(['/two']);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  // nextStepper() {
+  //   this.router.navigate(['/two']);
+  //   window.scrollTo({ top: 0, behavior: 'smooth' });
+  // }
 
   updateStepVisibility() {
     for (let i = 1; i <= 10; i++) {
