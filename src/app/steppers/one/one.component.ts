@@ -6,7 +6,8 @@ import { ServicesService } from 'src/app/services/services.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
-import { forkJoin } from 'rxjs';
+import { of, forkJoin } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-one',
@@ -21,11 +22,17 @@ export class OneComponent implements OnInit {
   
   private searchTermSubject = new Subject<string>();
   
-  servicios: { id: number;  nombre: string; monto_pesos: number; }[] = [];
   
   producciones: produccion[] = [];
-  produccion: any[] = [];  // Aquí tienes los datos de producción, asumo que ya está inicializado
-
+  produccionEjemplo: produccion = {
+    id: 0,
+    producto: '',
+    unidad_medida: null, // Puedes dejarlo como null inicialmente
+    mercado_interno: null, // Inicialmente null
+    mercado_externo: null, // Inicialmente null
+    id_empresa: undefined, // Opcional, se puede dejar como undefined
+    observaciones: '' // Inicialmente vacío
+};
   bieness: UtilizacionInsumos[] = [];
   servicioss: UtilizacionServicio[] = [];
   servicio_basic: InsumosBasicos [] = [];
@@ -120,7 +127,7 @@ agregarNuevaFila3() {
 }
 
   agregarNuevaFilaServicio() {
-    this.servicios.push({ id: 0,  nombre: '', monto_pesos: 0 });
+    this.servicioss.push({ id: 0,  nombre: '', monto_pesos: 0 });
   }
 
   agregarNuevaFilaServicioBasico(){
@@ -152,8 +159,8 @@ agregarNuevaFila3() {
   }
   
   eliminarUltimaFilaServicios() {
-    if (this.servicios.length > 0)  {
-      this.servicios.pop();
+    if (this.servicioss.length > 0)  {
+      this.servicioss.pop();
 
     }
   }
@@ -220,22 +227,26 @@ agregarNuevaFila3() {
  
 
     step2() {
-      // Asigna id_empresa a cada producción
-      this.producciones.forEach(p => p.id_empresa = this.idEmpresa);
-    
-      // Enviar cada producción por separado
-      this.producciones.forEach((produccion) => {
-        this.oneService.enviarDatosProduccion(produccion).subscribe(
-          response => {
-            console.log('Producción enviada correctamente', response);
-          },
-          error => {
-            console.error('Error al enviar la producción', error);
-          }
-        );
+      console.log(this.produccionEjemplo); // Verificar datos enviados
+      this.produccionEjemplo.id_empresa = this.idEmpresa;
+
+      this.oneService.enviarDatosProduccion(this.produccionEjemplo).subscribe({
+        next: (response) => {
+          console.log('Datos enviados exitosamente:', response);
+          if (this.currentStep < 10) {
+            this.currentStep++;
+            this.updateStepVisibility();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }    
+        },
+        error: (error) => {
+          console.error('Error al enviar los datos:', error);
+        },
+        complete: () => {
+          console.log('Solicitud completada.');
+        }
       });
-    
-      // Si todo va bien, pasar al siguiente step
+      // Asigna id_empresa a cada producción
       if (this.currentStep < 10) {
         this.currentStep++;
         this.updateStepVisibility();
@@ -252,18 +263,37 @@ agregarNuevaFila3() {
       this.remuneraciones_cargas.forEach(manoObra => manoObra.id_empresa = this.idEmpresa);
     
       // Crea un arreglo de observables para cada tipo de dato que se va a enviar
-      const bienesRequests = this.bieness.map(insumo =>
-        this.oneService.enviarDatosBienes(this.idEmpresa, insumo)
-      );
-      const serviciosRequests = this.servicioss.map(servicio =>
-        this.oneService.enviarDatosServicios(this.idEmpresa, servicio)
-      );
-      const insumosBasicosRequests = this.servicio_basic.map(insumoBasico =>
-        this.oneService.enviarDatosServiciosBasicos(this.idEmpresa, insumoBasico)
-      );
-      const manoObraRequests = this.remuneraciones_cargas.map(manoObra =>
-        this.oneService.enviarManoDeObra(this.idEmpresa, manoObra)
-      );
+      const bienesRequests = this.bieness.map(insumo => {
+        return this.oneService.enviarDatosBienes(this.idEmpresa, insumo)
+          .pipe(catchError(err => {
+            console.error(`Error al enviar insumo: ${insumo.producto}`, err);
+            return of(null); // Devuelve un observable vacío para evitar que el error rompa todo el flujo
+          }));
+      });
+    
+      const serviciosRequests = this.servicioss.map(servicio => {
+        return this.oneService.enviarDatosServicios(this.idEmpresa, servicio)
+          .pipe(catchError(err => {
+            console.error(`Error al enviar servicio: ${servicio}`, err);
+            return of(null); // Continua el flujo si hay error
+          }));
+      });
+    
+      const insumosBasicosRequests = this.servicio_basic.map(insumoBasico => {
+        return this.oneService.enviarDatosServiciosBasicos(this.idEmpresa, insumoBasico)
+          .pipe(catchError(err => {
+            console.error(`Error al enviar insumo básico: ${insumoBasico}`, err);
+            return of(null);
+          }));
+      });
+    
+      const manoObraRequests = this.remuneraciones_cargas.map(manoObra => {
+        return this.oneService.enviarManoDeObra(this.idEmpresa, manoObra)
+          .pipe(catchError(err => {
+            console.error(`Error al enviar mano de obra: ${manoObra.tipo}`, err);
+            return of(null);
+          }));
+      });
     
       // Combina todas las solicitudes en un solo observable
       const allRequests = forkJoin([
@@ -275,16 +305,23 @@ agregarNuevaFila3() {
     
       allRequests.subscribe({
         next: responses => {
-          console.log('Todos los datos enviados correctamente', responses);
-          // Si todo va bien, pasar al siguiente paso
-           this.router.navigate(['/two', this.idEmpresa]);
-
+          // Filtra las respuestas nulas si alguna solicitud falló
+          const successfulResponses = responses.filter(response => response !== null);
+          
+          if (successfulResponses.length === responses.length) {
+            console.log('Todos los datos fueron enviados correctamente', successfulResponses);
+            // Si todo va bien, pasa al siguiente paso
+            this.router.navigate(['/two', this.idEmpresa]);
+          } else {
+            console.warn('Algunos datos no se enviaron correctamente');
+          }
         },
         error: error => {
-          console.error('Error al enviar los datos:', error);
+          console.error('Error en la ejecución de las solicitudes:', error);
         }
       });
     }
+    
     
   nextStep() {
     if (this.currentStep < 10) {

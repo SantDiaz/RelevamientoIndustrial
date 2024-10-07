@@ -30,8 +30,8 @@ export class ServicesService {
 
   enviarDatosProduccion(produccionData: produccion): Observable<any> {
     const idEmpresa = produccionData.id_empresa;
+    return this.http.post<produccion>(`${this.baseUrl}/${idEmpresa}/produccion`, produccionData);
 
-    return this.http.post(`${this.baseUrl}/${idEmpresa}/produccion`, produccionData);
   }
 // Suponiendo que baseUrl es algo como 'http://tuservidor/api'
 

@@ -169,19 +169,19 @@
         <tbody>
           <tr *ngFor="let produccion of producciones; let i = index">
             <td class="border border-gray-300 px-4 py-2">
-              <input type="text" [(ngModel)]="produccion.producto" class="w-full">
+              <input type="text" [(ngModel)]="produccionEjemplo.producto" class="w-full">
               <!-- <input type="text" [(ngModel)]="produccion.producto" (input)="onBuscarOAgregarProducto($event, i)" class="w-full"> -->
             </td>
             <td class="border border-gray-300 px-4 py-2">
-              <select [(ngModel)]="produccion.unidad_medida">
+              <select [(ngModel)]="produccionEjemplo.unidad_medida">
                 <option *ngFor="let opcion of unidad_medida" [value]="opcion">{{ opcion }}</option>
               </select>
             </td>
             <td class="border border-gray-300 px-4 py-2">
-              <input type="number" [(ngModel)]="produccion.mercado_interno" class="w-full">
+              <input type="number" [(ngModel)]="produccionEjemplo.mercado_interno" class="w-full">
             </td>
             <td class="border border-gray-300 px-4 py-2">
-              <input type="number" [(ngModel)]="produccion.mercado_externo" class="w-full">
+              <input type="number" [(ngModel)]="produccionEjemplo.mercado_externo" class="w-full">
             </td>
           </tr>
         </tbody>
@@ -288,7 +288,7 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngFor="let servicio of servicios; let i = index">
+          <ng-container *ngFor="let servicio of servicioss; let i = index">
             <tr>
               <td class="border border-gray-300 px-4 py-2">
                 <input [(ngModel)]="servicio.nombre" type="text" class="w-full" [attr.id]="'servicio-' + i + '-nombre'">
