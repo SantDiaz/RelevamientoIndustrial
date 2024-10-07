@@ -102,7 +102,7 @@ export interface UtilizacionServicio {
     nombre: string;
     monto_pesos: number;
     id_empresa?: number;  // Agregar id_empresa
-    
+
 }
 
 export interface InsumosBasicos {
@@ -198,6 +198,25 @@ export const unidad_medidas = [
     null
   ];
 
+
+
+  // paso3
+  export interface ItemVenta {
+    item: string; // Nombre del item
+    monto: number; // Monto asociado
+   id_empresa?: number; // Agregar id_empresa
+
+}
+  
+export interface ventas {
+   
+  id: number;
+  id_empresa?: number; // Agregar id_empresa
+  items: ItemVenta[]; // Cambiar a un array de ItemVenta
+  // items: '9.1.1 Al mercado interno' | '9.1.2 Al mercado externo'| '9.1.3 Transferencias';
+  periodo: string;
+
+}
 
 // export interface operativos {
 //     id: number;

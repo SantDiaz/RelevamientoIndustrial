@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {   cantidadTrabajadores, DatosEmpresa, DatosRespondiente, horasExtras, horasNormales, InsumosBasicos, manoDeObra, produccion, remuneraciones_cargas, servicios_basicos, UtilizacionInsumos, UtilizacionServicio } from 'src/app/Interfaces/models';
+import {   cantidadTrabajadores, DatosEmpresa, DatosRespondiente, horasExtras, horasNormales, InsumosBasicos, manoDeObra, produccion, remuneraciones_cargas, servicios_basicos, UtilizacionInsumos, UtilizacionServicio, ventas } from 'src/app/Interfaces/models';
 
 
 @Injectable({
@@ -10,6 +10,7 @@ import {   cantidadTrabajadores, DatosEmpresa, DatosRespondiente, horasExtras, h
 export class ServicesService {
   private baseUrl = 'http://localhost:8080/api'; // Assuming your Spring Boot app runs on port 8080
   private baseUrl2 = 'http://localhost:8080/apiTwo'; // Assuming your Spring Boot app runs on port 8080
+  private baseUrl3 = 'http://localhost:8080/apiThree'; // Assuming your Spring Boot app runs on port 8080
 
   idEmpresa: number = 0;
 
@@ -66,6 +67,12 @@ enviarHorasNormales(idEmpresa: number, horasNormalesData: horasNormales): Observ
 // Enviar datos de horas extras
 enviarHorasExtras(idEmpresa: number, horasExtrasData: horasExtras): Observable<any> {
   return this.http.post<horasExtras>(`${this.baseUrl2}/${idEmpresa}/horasExtras`, horasExtrasData);
+}
+
+// PASO 3
+
+createVenta( idEmpresa:number , venta: ventas): Observable<ventas> {
+  return this.http.post<ventas>(`${this.baseUrl3}/${idEmpresa}/venta`, venta);
 }
 
 }

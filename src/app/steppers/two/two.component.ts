@@ -260,13 +260,8 @@ export class TwoComponent implements OnInit {
                 }, error => {
                   console.error('Error al enviar horas extras:', error);
                 });
-                if (this.currentStep < 10) {  // Ajusta este número si añades más pasos
-                  this.currentStep++;
-                  this.updateStepVisibility();
-              
-                  // Desplaza la página al inicio
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
+                this.router.navigate(['/three', this.idEmpresa]);
+
             }
           
 
