@@ -40,7 +40,7 @@ enviarDatosBienes(idEmpresa: number, bienInsumo: UtilizacionInsumos) {
 }
 
 enviarDatosServicios(idEmpresa: number, servicioUtilizacion: UtilizacionServicio) {
-  return this.http.post(`${this.baseUrl}/${idEmpresa}/utilizacionServicio`, servicioUtilizacion);
+  return this.http.post(`${this.baseUrl}/${idEmpresa}/utilizacionServicios`, servicioUtilizacion);
 }
 
 enviarDatosServiciosBasicos(idEmpresa: number, insumosUtilizacion: InsumosBasicos) {

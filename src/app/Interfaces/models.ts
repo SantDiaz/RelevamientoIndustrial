@@ -102,7 +102,7 @@ export interface UtilizacionServicio {
     nombre: string;
     monto_pesos: number;
     id_empresa?: number;  // Agregar id_empresa
-
+    
 }
 
 export interface InsumosBasicos {

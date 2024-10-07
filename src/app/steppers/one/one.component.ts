@@ -6,7 +6,7 @@ import { ServicesService } from 'src/app/services/services.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
-import { of, forkJoin } from 'rxjs';
+import { of, forkJoin, tap } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Component({
@@ -33,17 +33,14 @@ export class OneComponent implements OnInit {
     id_empresa: undefined, // Opcional, se puede dejar como undefined
     observaciones: '' // Inicialmente vacío
 };
-  bieness: UtilizacionInsumos[] = [];
-  servicioss: UtilizacionServicio[] = [];
-  servicio_basic: InsumosBasicos [] = [];
-  servicio_basico = servicios_basicos;
-  remuneraciones_cargas : manoDeObra[] = [];
-  remuneracion_carga = remuneraciones_cargas;
+    bieness: UtilizacionInsumos[] = [];
+    servicioss: UtilizacionServicio[] = [];
+    servicio_basic: InsumosBasicos [] = [];
+    remuneraciones_cargas : manoDeObra[] = [];
+    servicio_basico = servicios_basicos;
+    remuneracion_carga = remuneraciones_cargas;
 
-  // step3
-  utilacion_Servicio: UtilizacionServicio[] = [];
-  insumos_Basicos: InsumosBasicos [] = [];
-  mano_Obra :manoDeObra [] = [];
+
 //Recibir id_empresa de tabla encuestas
 idEmpresa: number = 0 ;
 
@@ -254,8 +251,13 @@ agregarNuevaFila3() {
       }
     }
 
-    
     step3() {
+      // Validación de datos
+      // if (!this.validateData()) {
+      //   console.error('Validación fallida. Por favor, revise todos los campos.');
+      //   return;
+      // }
+    
       // Asigna id_empresa a cada fila de las tablas antes de enviar
       this.bieness.forEach(insumo => insumo.id_empresa = this.idEmpresa);
       this.servicioss.forEach(servicio => servicio.id_empresa = this.idEmpresa);
@@ -263,37 +265,45 @@ agregarNuevaFila3() {
       this.remuneraciones_cargas.forEach(manoObra => manoObra.id_empresa = this.idEmpresa);
     
       // Crea un arreglo de observables para cada tipo de dato que se va a enviar
-      const bienesRequests = this.bieness.map(insumo => {
-        return this.oneService.enviarDatosBienes(this.idEmpresa, insumo)
-          .pipe(catchError(err => {
+      const bienesRequests = this.bieness.map(insumo => 
+        this.oneService.enviarDatosBienes(this.idEmpresa, insumo).pipe(
+          tap(() => console.log(`Insumo enviado exitosamente: ${insumo.producto}`)),
+          catchError(err => {
             console.error(`Error al enviar insumo: ${insumo.producto}`, err);
-            return of(null); // Devuelve un observable vacío para evitar que el error rompa todo el flujo
-          }));
-      });
-    
-      const serviciosRequests = this.servicioss.map(servicio => {
-        return this.oneService.enviarDatosServicios(this.idEmpresa, servicio)
-          .pipe(catchError(err => {
-            console.error(`Error al enviar servicio: ${servicio}`, err);
-            return of(null); // Continua el flujo si hay error
-          }));
-      });
-    
-      const insumosBasicosRequests = this.servicio_basic.map(insumoBasico => {
-        return this.oneService.enviarDatosServiciosBasicos(this.idEmpresa, insumoBasico)
-          .pipe(catchError(err => {
-            console.error(`Error al enviar insumo básico: ${insumoBasico}`, err);
             return of(null);
-          }));
-      });
+          })
+        )
+      );
     
-      const manoObraRequests = this.remuneraciones_cargas.map(manoObra => {
-        return this.oneService.enviarManoDeObra(this.idEmpresa, manoObra)
-          .pipe(catchError(err => {
+      const serviciosRequests = this.servicioss.map(servicio => 
+        this.oneService.enviarDatosServicios(this.idEmpresa, servicio).pipe(
+          tap(() => console.log(`Servicio enviado exitosamente: ${servicio.nombre}`)),
+          catchError(err => {
+            console.error(`Error al enviar servicio: ${servicio.nombre}`, err);
+            return of(null);
+          })
+        )
+      );
+    
+      const insumosBasicosRequests = this.servicio_basic.map(insumoBasico => 
+        this.oneService.enviarDatosServiciosBasicos(this.idEmpresa, insumoBasico).pipe(
+          tap(() => console.log(`Insumo básico enviado exitosamente: ${insumoBasico.tipo}`)),
+          catchError(err => {
+            console.error(`Error al enviar insumo básico: ${insumoBasico.tipo}`, err);
+            return of(null);
+          })
+        )
+      );
+    
+      const manoObraRequests = this.remuneraciones_cargas.map(manoObra => 
+        this.oneService.enviarManoDeObra(this.idEmpresa, manoObra).pipe(
+          tap(() => console.log(`Mano de obra enviada exitosamente: ${manoObra.tipo}`)),
+          catchError(err => {
             console.error(`Error al enviar mano de obra: ${manoObra.tipo}`, err);
             return of(null);
-          }));
-      });
+          })
+        )
+      );
     
       // Combina todas las solicitudes en un solo observable
       const allRequests = forkJoin([
@@ -305,23 +315,61 @@ agregarNuevaFila3() {
     
       allRequests.subscribe({
         next: responses => {
-          // Filtra las respuestas nulas si alguna solicitud falló
           const successfulResponses = responses.filter(response => response !== null);
+          console.log(`Respuestas exitosas: ${successfulResponses.length}/${responses.length}`);
           
           if (successfulResponses.length === responses.length) {
-            console.log('Todos los datos fueron enviados correctamente', successfulResponses);
-            // Si todo va bien, pasa al siguiente paso
+            console.log('Todos los datos fueron enviados correctamente');
             this.router.navigate(['/two', this.idEmpresa]);
           } else {
             console.warn('Algunos datos no se enviaron correctamente');
+            // Aquí podrías mostrar un mensaje al usuario o intentar reenviar los datos fallidos
           }
         },
         error: error => {
           console.error('Error en la ejecución de las solicitudes:', error);
+          // Aquí podrías mostrar un mensaje de error al usuario
         }
       });
     }
     
+    // // Método de validación
+    // private validateData(): boolean {
+    //   let isValid = true;
+    
+    //   // Validar bienes
+    //   this.bieness.forEach((bien, index) => {
+    //     if (!bien.producto || !bien.unidad_medida || !bien.cantidad || !bien.monto_pesos) {
+    //       console.error(`Bien en índice ${index} tiene campos incompletos`);
+    //       isValid = false;
+    //     }
+    //   });
+    
+    //   // Validar servicios
+    //   this.servicioss.forEach((servicio, index) => {
+    //     if (!servicio.nombre || !servicio.monto_pesos) {
+    //       console.error(`Servicio en índice ${index} tiene campos incompletos`);
+    //       isValid = false;
+    //     }
+    //   });
+    
+    //   // Validar servicios básicos
+    //   this.servicio_basic.forEach((servicioB, index) => {
+    //     if (!servicioB.tipo || !servicioB.cantidad || !servicioB.monto_pesos) {
+    //       console.error(`Servicio básico en índice ${index} tiene campos incompletos`);
+    //       isValid = false;
+    //     }
+    //   });
+    
+    //   // Validar mano de obra
+    //   this.remuneraciones_cargas.forEach((remuCarga, index) => {
+    //     if (!remuCarga.tipo || !remuCarga.monto_pesos) {
+    //       console.error(`Remuneración/carga en índice ${index} tiene campos incompletos`);
+    //       isValid = false;
+    //     }
+    //   });
+    
+    //   return isValid;
     
   nextStep() {
     if (this.currentStep < 10) {
