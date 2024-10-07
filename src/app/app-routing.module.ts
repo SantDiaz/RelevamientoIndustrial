@@ -23,15 +23,15 @@ const routes: Routes = [
     component: OneComponent
   },
   {
-    path: 'two',
+    path: 'two/:id',
     component: TwoComponent
   },
   {
-    path: 'three',
+    path: 'three/:id',
     component: ThreeComponent
   },
   {
-    path: 'four',
+    path: 'four/:id',
     component: FourComponent
   },
   { 

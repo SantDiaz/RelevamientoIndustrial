@@ -33,7 +33,6 @@ export class ServicesService {
     return this.http.post<produccion>(`${this.baseUrl}/${idEmpresa}/produccion`, produccionData);
 
   }
-// Suponiendo que baseUrl es algo como 'http://tuservidor/api'
 
 enviarDatosBienes(idEmpresa: number, bienInsumo: UtilizacionInsumos) {
   return this.http.post(`${this.baseUrl}/${idEmpresa}/insumosBasicos`, bienInsumo);
@@ -52,18 +51,20 @@ enviarManoDeObra(idEmpresa: number, manoObra: manoDeObra) {
 }
 
 
+
+
 // PASO 2
-enviarCantidadTrabajadores(idEmpresa: number, cantidadTrabajadoresData: cantidadTrabajadores): Observable<cantidadTrabajadores> {
+enviarCantidadTrabajadores(idEmpresa: number, cantidadTrabajadoresData: cantidadTrabajadores): Observable<any> {
   return this.http.post<cantidadTrabajadores>(`${this.baseUrl2}/${idEmpresa}/cantidadTrabajadores`, cantidadTrabajadoresData);
 }
 
 // Enviar datos de horas normales
-enviarHorasNormales(idEmpresa: number, horasNormalesData: horasNormales): Observable<horasNormales> {
+enviarHorasNormales(idEmpresa: number, horasNormalesData: horasNormales): Observable<any> {
   return this.http.post<horasNormales>(`${this.baseUrl2}/${idEmpresa}/horasNormales`, horasNormalesData);
 }
 
 // Enviar datos de horas extras
-enviarHorasExtras(idEmpresa: number, horasExtrasData: horasExtras): Observable<horasExtras> {
+enviarHorasExtras(idEmpresa: number, horasExtrasData: horasExtras): Observable<any> {
   return this.http.post<horasExtras>(`${this.baseUrl2}/${idEmpresa}/horasExtras`, horasExtrasData);
 }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { cantidadTrabajadores, horasExtras, horasNormales } from 'src/app/Interfaces/models';
 import { ServicesService } from 'src/app/services/services.service';
 
@@ -47,12 +47,16 @@ export class TwoComponent implements OnInit {
     periodo: ''
   };
 
-  constructor(   private router: Router , private twoService: ServicesService,
+  constructor(   private router: Router , private twoService: ServicesService,     private route: ActivatedRoute,
+
 
   ) { }
 
   ngOnInit(): void {
+    this.idEmpresa = Number(this.route.snapshot.paramMap.get('id'));
+
   }
+
 
   nextStep() {
     if (this.currentStep < 10) {  // Ajusta este número si añades más pasos
@@ -99,9 +103,9 @@ export class TwoComponent implements OnInit {
     this.cantidadTrabajadores.id_empresa = this.idEmpresa;
     this.horasNormales.id_empresa = this.idEmpresa;
     this.horasExtras.id_empresa = this.idEmpresa;
-    this.cantidadTrabajadores.periodo = 'Enero a Marzo 2023';
-    this.horasNormales.periodo = 'Enero a Marzo 2023';
-    this.horasExtras.periodo = 'Enero a Marzo 2023';
+    this.cantidadTrabajadores.periodo = 'Enero a Marzo ';
+    this.horasNormales.periodo = 'Enero a Marzo ';
+    this.horasExtras.periodo = 'Enero a Marzo ';
 
     // Enviar los datos
       // Enviar cantidad de trabajadores
@@ -119,7 +123,7 @@ export class TwoComponent implements OnInit {
         }, error => {
           console.error('Error al enviar horas normales:', error);
         });
-  
+        
       // Enviar horas extras
       this.twoService.enviarHorasExtras(this.idEmpresa, this.horasExtras)
         .subscribe(response => {
@@ -127,8 +131,144 @@ export class TwoComponent implements OnInit {
         }, error => {
           console.error('Error al enviar horas extras:', error);
         });
+        if (this.currentStep < 10) {  // Ajusta este número si añades más pasos
+          this.currentStep++;
+          this.updateStepVisibility();
+      
+          // Desplaza la página al inicio
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     }
-
     
+
+
+      
+      Step2() {
+        this.cantidadTrabajadores.id_empresa = this.idEmpresa;
+        this.horasNormales.id_empresa = this.idEmpresa;
+        this.horasExtras.id_empresa = this.idEmpresa;
+        this.cantidadTrabajadores.periodo = 'Abril a Junio';
+        this.horasNormales.periodo =        'Abril a Junio';
+        this.horasExtras.periodo =          'Abril a Junio';
+    
+        // Enviar los datos
+          // Enviar cantidad de trabajadores
+          this.twoService.enviarCantidadTrabajadores(this.idEmpresa, this.cantidadTrabajadores)
+            .subscribe(response => {
+              console.log('Cantidad de trabajadores enviada:', response);
+            }, error => {
+              console.error('Error al enviar cantidad de trabajadores:', error);
+            });
+      
+          // Enviar horas normales
+          this.twoService.enviarHorasNormales(this.idEmpresa, this.horasNormales)
+            .subscribe(response => {
+              console.log('Horas normales enviadas:', response);
+            }, error => {
+              console.error('Error al enviar horas normales:', error);
+            });
+            
+          // Enviar horas extras
+          this.twoService.enviarHorasExtras(this.idEmpresa, this.horasExtras)
+            .subscribe(response => {
+              console.log('Horas extras enviadas:', response);
+            }, error => {
+              console.error('Error al enviar horas extras:', error);
+            });
+            if (this.currentStep < 10) {  // Ajusta este número si añades más pasos
+              this.currentStep++;
+              this.updateStepVisibility();
+          
+              // Desplaza la página al inicio
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    
+        
+
+        Step3() {
+          this.cantidadTrabajadores.id_empresa = this.idEmpresa;
+          this.horasNormales.id_empresa = this.idEmpresa;
+          this.horasExtras.id_empresa = this.idEmpresa;
+          this.cantidadTrabajadores.periodo = 'Julio a Septiembre';
+          this.horasNormales.periodo =        'Julio a Septiembre';
+          this.horasExtras.periodo =          'Julio a Septiembre';
+      
+          // Enviar los datos
+            // Enviar cantidad de trabajadores
+            this.twoService.enviarCantidadTrabajadores(this.idEmpresa, this.cantidadTrabajadores)
+              .subscribe(response => {
+                console.log('Cantidad de trabajadores enviada:', response);
+              }, error => {
+                console.error('Error al enviar cantidad de trabajadores:', error);
+              });
+        
+            // Enviar horas normales
+            this.twoService.enviarHorasNormales(this.idEmpresa, this.horasNormales)
+              .subscribe(response => {
+                console.log('Horas normales enviadas:', response);
+              }, error => {
+                console.error('Error al enviar horas normales:', error);
+              });
+              
+            // Enviar horas extras
+            this.twoService.enviarHorasExtras(this.idEmpresa, this.horasExtras)
+              .subscribe(response => {
+                console.log('Horas extras enviadas:', response);
+              }, error => {
+                console.error('Error al enviar horas extras:', error);
+              });
+              if (this.currentStep < 10) {  // Ajusta este número si añades más pasos
+                this.currentStep++;
+                this.updateStepVisibility();
+            
+                // Desplaza la página al inicio
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+          }
+          
+
+          Step4() {
+            this.cantidadTrabajadores.id_empresa = this.idEmpresa;
+            this.horasNormales.id_empresa = this.idEmpresa;
+            this.horasExtras.id_empresa = this.idEmpresa;
+            this.cantidadTrabajadores.periodo = 'Octubre a Diciembre ';
+            this.horasNormales.periodo =        'Octubre a Diciembre ';
+            this.horasExtras.periodo =          'Octubre a Diciembre ';
+        
+            // Enviar los datos
+              // Enviar cantidad de trabajadores
+              this.twoService.enviarCantidadTrabajadores(this.idEmpresa, this.cantidadTrabajadores)
+                .subscribe(response => {
+                  console.log('Cantidad de trabajadores enviada:', response);
+                }, error => {
+                  console.error('Error al enviar cantidad de trabajadores:', error);
+                });
+          
+              // Enviar horas normales
+              this.twoService.enviarHorasNormales(this.idEmpresa, this.horasNormales)
+                .subscribe(response => {
+                  console.log('Horas normales enviadas:', response);
+                }, error => {
+                  console.error('Error al enviar horas normales:', error);
+                });
+                
+              // Enviar horas extras
+              this.twoService.enviarHorasExtras(this.idEmpresa, this.horasExtras)
+                .subscribe(response => {
+                  console.log('Horas extras enviadas:', response);
+                }, error => {
+                  console.error('Error al enviar horas extras:', error);
+                });
+                if (this.currentStep < 10) {  // Ajusta este número si añades más pasos
+                  this.currentStep++;
+                  this.updateStepVisibility();
+              
+                  // Desplaza la página al inicio
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+          
+
   } 
 

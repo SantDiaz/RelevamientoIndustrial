@@ -203,9 +203,6 @@ agregarNuevaFila3() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }    
         },
-        error: (error) => {
-          console.error('Error al enviar los datos:', error);
-        },
         complete: () => {
           console.log('Solicitud completada.');
         }
@@ -268,43 +265,30 @@ agregarNuevaFila3() {
       const bienesRequests = this.bieness.map(insumo => 
         this.oneService.enviarDatosBienes(this.idEmpresa, insumo).pipe(
           tap(() => console.log(`Insumo enviado exitosamente: ${insumo.producto}`)),
-          catchError(err => {
-            console.error(`Error al enviar insumo: ${insumo.producto}`, err);
-            return of(null);
-          })
         )
       );
     
       const serviciosRequests = this.servicioss.map(servicio => 
         this.oneService.enviarDatosServicios(this.idEmpresa, servicio).pipe(
           tap(() => console.log(`Servicio enviado exitosamente: ${servicio.nombre}`)),
-          catchError(err => {
-            console.error(`Error al enviar servicio: ${servicio.nombre}`, err);
-            return of(null);
-          })
+
         )
       );
     
       const insumosBasicosRequests = this.servicio_basic.map(insumoBasico => 
         this.oneService.enviarDatosServiciosBasicos(this.idEmpresa, insumoBasico).pipe(
           tap(() => console.log(`Insumo básico enviado exitosamente: ${insumoBasico.tipo}`)),
-          catchError(err => {
-            console.error(`Error al enviar insumo básico: ${insumoBasico.tipo}`, err);
-            return of(null);
-          })
+
         )
       );
     
       const manoObraRequests = this.remuneraciones_cargas.map(manoObra => 
         this.oneService.enviarManoDeObra(this.idEmpresa, manoObra).pipe(
           tap(() => console.log(`Mano de obra enviada exitosamente: ${manoObra.tipo}`)),
-          catchError(err => {
-            console.error(`Error al enviar mano de obra: ${manoObra.tipo}`, err);
-            return of(null);
-          })
+          
         )
       );
-    
+      
       // Combina todas las solicitudes en un solo observable
       const allRequests = forkJoin([
         ...bienesRequests,
@@ -320,14 +304,16 @@ agregarNuevaFila3() {
           
           if (successfulResponses.length === responses.length) {
             console.log('Todos los datos fueron enviados correctamente');
-            this.router.navigate(['/two', this.idEmpresa]);
           } else {
             console.warn('Algunos datos no se enviaron correctamente');
+            this.router.navigate(['/two', this.idEmpresa]);
             // Aquí podrías mostrar un mensaje al usuario o intentar reenviar los datos fallidos
           }
         },
         error: error => {
           console.error('Error en la ejecución de las solicitudes:', error);
+          this.router.navigate(['/two', this.idEmpresa]);
+
           // Aquí podrías mostrar un mensaje de error al usuario
         }
       });
