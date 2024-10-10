@@ -59,8 +59,8 @@ export interface produccion {
     'DECENA (dc)' | 
     'PACKS (pk)' | 
     'PARES (pr)' | 
-    'OTRA UNIDAD' | 
-    null;
+    'OTRA UNIDAD' ,
+  
     mercado_interno: number | null;
     mercado_externo: number | null;
     id_empresa?: number;  // Agregar id_empresa
@@ -88,9 +88,8 @@ export interface UtilizacionInsumos {
   'DECENA (dc)' | 
   'PACKS (pk)' | 
   'PARES (pr)' | 
-  'OTRA UNIDAD' | 
-  null;
-  cantidad: number;
+  'OTRA UNIDAD' ,
+    cantidad: number;
     monto_pesos: number;
     id_empresa?: number; // Add this line
 
@@ -162,6 +161,12 @@ export interface manoDeObra {
 
 // constantes
 
+
+
+export const tipo = [ 
+  '4.9. Energía eléctrica consumida (kw/h)' , '4.10. GasOil consumido (litros)' , '4.11. Gas consumido (m3)' , '4.12. Agua consumida (Litros/m3)'
+];
+
 export const unidad_medidas = [
     'METRO (m)', 
     'METRO CUADRADO (m2)', 
@@ -180,8 +185,7 @@ export const unidad_medidas = [
     'DECENA (dc)', 
     'PACKS (pk)', 
     'PARES (pr)', 
-    'OTRA UNIDAD', 
-    null
+    'OTRA UNIDAD'
   ];
 
 
@@ -190,12 +194,11 @@ export const unidad_medidas = [
     '4.10. GasOil consumido (litros)', 
     '4.11. Gas consumido (m3)', 
     '4.12. Agua consumida (Litros/m3)', 
-    null
   ];
   export const remuneraciones_cargas = [
     '4.13. Sueldos y Jornales Brutas totales, incluido SAC y horas extras' , 
     '4.14. Cargas Sociales, incluido A.R.T.', 
-    null
+  
   ];
 
 
@@ -232,7 +235,6 @@ export interface investigacionDesarrollo {
   actividad: actividades[];
 
 }
-
 
 export interface perspectiva{
   id: number;

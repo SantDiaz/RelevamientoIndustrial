@@ -14,7 +14,7 @@ export class FourComponent implements OnInit {
   invest: investigacionDesarrollo = {
     id: 0,
     id_empresa: 0,
-    actividad: [],
+    actividad: [], //siempre fue actividad l
   };
 
   perspect: perspectiva = {
@@ -124,12 +124,12 @@ export class FourComponent implements OnInit {
     this.fourServices.enviarPerspectiva(this.idEmpresa, this.perspect).subscribe(
       response => {
         console.log('Datos de perspectiva enviados correctamente:', response);
-        this.router.navigate(['/home']);
-
+        
         // Aquí puedes manejar la respuesta exitosa, como redirigir o mostrar un mensaje
       },
       error => {
         console.error('Error al enviar los datos de perspectiva:', error);
+        this.router.navigate(['/home']);
         // Aquí puedes manejar el error, como mostrar un mensaje de error
       }
     );

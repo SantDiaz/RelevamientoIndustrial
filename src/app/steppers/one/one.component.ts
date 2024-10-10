@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 // import { bienes, datos_empresas, domicilio_industrial, email_respondente, nombres_fantasia, opciones_servicios, produccion, productos, respondente, servicios, telefonos_empresa, telefonos_repondente, unidad_medidas } from 'src/app/Interfaces/models';
-import {  produccion, unidad_medidas, servicios_basicos, remuneraciones_cargas, DatosEmpresa, DatosRespondiente, UtilizacionInsumos, UtilizacionServicio, InsumosBasicos, manoDeObra  } from 'src/app/Interfaces/models';
+import {  produccion, unidad_medidas, servicios_basicos, remuneraciones_cargas, DatosEmpresa, DatosRespondiente, UtilizacionInsumos, UtilizacionServicio, InsumosBasicos, manoDeObra, tipo  } from 'src/app/Interfaces/models';
 import { ServicesService } from 'src/app/services/services.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -17,6 +17,12 @@ import { catchError } from 'rxjs/operators';
 export class OneComponent implements OnInit {
   currentStep = 1;
   unidad_medida = unidad_medidas;
+  tipos = [
+    "4.9. Energía eléctrica consumida (kw/h)",
+    "4.10. GasOil consumido (litros)",
+    "4.11. Gas consumido (m3)",
+    "4.12. Agua consumida (Litros/m3)"
+];
   // empresas: datos_empresas[] = [];
   // selectedEmpresa: datos_empresas | null = null;
   
@@ -27,15 +33,16 @@ export class OneComponent implements OnInit {
   produccionEjemplo: produccion = {
     id: 0,
     producto: '',
-    unidad_medida: null, // Puedes dejarlo como null inicialmente
-    mercado_interno: null, // Inicialmente null
-    mercado_externo: null, // Inicialmente null
+    unidad_medida: 'CENTÍMETRO (cm)', // Puedes dejarlo como null inicialmente
+    mercado_interno: 0, // Inicialmente null
+    mercado_externo: 0, // Inicialmente null
     id_empresa: undefined, // Opcional, se puede dejar como undefined
     observaciones: '' // Inicialmente vacío
 };
-    bieness: UtilizacionInsumos[] = [];
+// bieness: InsumosBasicos[] = [];
+    bieness:  UtilizacionInsumos  [] = [];
+    insumo_basic: InsumosBasicos[] = [];
     servicioss: UtilizacionServicio[] = [];
-    servicio_basic: InsumosBasicos [] = [];
     remuneraciones_cargas : manoDeObra[] = [];
     servicio_basico = servicios_basicos;
     remuneracion_carga = remuneraciones_cargas;
@@ -89,7 +96,6 @@ idEmpresa: number = 0 ;
     this.searchTermSubject.next(term);
   }
 
-
  
   actualizarProduccion(index: number, nombre: string) {
     this.producciones[index].producto = nombre;
@@ -103,7 +109,7 @@ idEmpresa: number = 0 ;
     const nuevaProduccion: produccion = {
       id: 0,
       producto: '',
-      unidad_medida: null,
+      unidad_medida: 'CENTÍMETRO (cm)',
       mercado_interno: 0,
       mercado_externo: 0
     };
@@ -111,16 +117,16 @@ idEmpresa: number = 0 ;
   }
 
   
-
-agregarNuevaFila3() {
-  const nuevaBienes: UtilizacionInsumos = {
-    id: 0,
+  agregarNuevaFila3() {
+    const nuevaBienes:  UtilizacionInsumos = {
+      id: 0,
     producto: '',
-    unidad_medida: null,
+    unidad_medida: 'CENTÍMETRO CUADRADO (cm2)',
     cantidad: 0,
     monto_pesos: 0,
-  };
-  this.bieness.push(nuevaBienes);
+
+    };
+    this.bieness.push(nuevaBienes);
 }
 
   agregarNuevaFilaServicio() {
@@ -129,12 +135,13 @@ agregarNuevaFila3() {
 
   agregarNuevaFilaServicioBasico(){
     const nuevaServicioBasico: InsumosBasicos = {
-      id: 0,
-      tipo: '4.9. Energía eléctrica consumida (kw/h)',
-      cantidad: 0,
-      monto_pesos: 0,
+
+    id: 0,
+    tipo: '4.9. Energía eléctrica consumida (kw/h)',
+    cantidad: 0,
+    monto_pesos: 0,
     };
-    this.servicio_basic.push(nuevaServicioBasico);
+    this.insumo_basic.push(nuevaServicioBasico);
   }
 
   agregarNuevaFilaRemuneracionCarga(){
@@ -170,8 +177,8 @@ agregarNuevaFila3() {
 
 
   eliminarUltimaFilaServicioBasico(){
-    if (this.servicio_basic.length > 0) {
-      this.servicio_basic.pop();
+    if (this.insumo_basic.length > 0) {
+      this.insumo_basic.pop();
     }
   }
   
@@ -258,16 +265,23 @@ agregarNuevaFila3() {
       // Asigna id_empresa a cada fila de las tablas antes de enviar
       this.bieness.forEach(insumo => insumo.id_empresa = this.idEmpresa);
       this.servicioss.forEach(servicio => servicio.id_empresa = this.idEmpresa);
-      this.servicio_basic.forEach(insumoBasico => insumoBasico.id_empresa = this.idEmpresa);
+      this.insumo_basic.forEach(insumoBasico => insumoBasico.id_empresa = this.idEmpresa);
       this.remuneraciones_cargas.forEach(manoObra => manoObra.id_empresa = this.idEmpresa);
-    
+      console.log('Datos a enviar step3:', this.bieness, this.servicioss, this.insumo_basic, this.remuneraciones_cargas);
+
       // Crea un arreglo de observables para cada tipo de dato que se va a enviar
       const bienesRequests = this.bieness.map(insumo => 
-        this.oneService.enviarDatosBienes(this.idEmpresa, insumo).pipe(
+        this.oneService.enviarDatosServiciosBasicos(this.idEmpresa, insumo  ).pipe(
           tap(() => console.log(`Insumo enviado exitosamente: ${insumo.producto}`)),
         )
       );
     
+      const insumosBasicosRequests = this.insumo_basic.map(insumoBasico => 
+        this.oneService.enviarDatosBienes(this.idEmpresa,insumoBasico ).pipe(
+          tap(() => console.log(`Insumo básico enviado exitosamente: ${insumoBasico.tipo}`)),
+
+        )
+      );
       const serviciosRequests = this.servicioss.map(servicio => 
         this.oneService.enviarDatosServicios(this.idEmpresa, servicio).pipe(
           tap(() => console.log(`Servicio enviado exitosamente: ${servicio.nombre}`)),
@@ -275,12 +289,6 @@ agregarNuevaFila3() {
         )
       );
     
-      const insumosBasicosRequests = this.servicio_basic.map(insumoBasico => 
-        this.oneService.enviarDatosServiciosBasicos(this.idEmpresa, insumoBasico).pipe(
-          tap(() => console.log(`Insumo básico enviado exitosamente: ${insumoBasico.tipo}`)),
-
-        )
-      );
     
       const manoObraRequests = this.remuneraciones_cargas.map(manoObra => 
         this.oneService.enviarManoDeObra(this.idEmpresa, manoObra).pipe(

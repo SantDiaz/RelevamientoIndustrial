@@ -249,7 +249,7 @@
               <tr *ngFor="let bienes of bieness; let i = index">
 
               <td class="border border-gray-300 px-4 py-2">
-                <input type="text" class="w-full" >
+                <input  [(ngModel)]="bienes.producto" type="text" class="w-full" >
               </td>
               <td class="border border-gray-300 px-4 py-2">
                 <select [(ngModel)]="bienes.unidad_medida">
@@ -321,12 +321,12 @@
             <th class="border border-gray-300 px-4 py-2">a- Cantidad utilizada (en kw/h /lts/ m3)</th>
             <th class="border border-gray-300 px-4 py-2">b- Monto Total en pesos (sin centavos)</th>
           </tr>
-        </thead>
+        </thead> 
         <tbody>
-          <tr *ngFor="let servicioB of servicio_basic; let i = index">
+          <tr *ngFor="let servicioB of insumo_basic; let i = index">
             <td class="border border-gray-300 px-4 py-2">
               <select [(ngModel)]="servicioB.tipo">
-                <option *ngFor="let opcion of servicio_basico" [value]="opcion">{{ opcion }}</option>
+                <option *ngFor="let opcion of tipos" [value]="opcion">{{ opcion }}</option>
               </select>
             </td>
             <td class="border border-gray-300 px-4 py-2">

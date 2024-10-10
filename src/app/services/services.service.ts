@@ -36,7 +36,7 @@ export class ServicesService {
 
   }
 
-enviarDatosBienes(idEmpresa: number, bienInsumo: UtilizacionInsumos) {
+enviarDatosBienes(idEmpresa: number, bienInsumo: InsumosBasicos ) {
   return this.http.post(`${this.baseUrl}/${idEmpresa}/insumosBasicos`, bienInsumo);
 }
 
@@ -44,7 +44,7 @@ enviarDatosServicios(idEmpresa: number, servicioUtilizacion: UtilizacionServicio
   return this.http.post(`${this.baseUrl}/${idEmpresa}/utilizacionServicios`, servicioUtilizacion);
 }
 
-enviarDatosServiciosBasicos(idEmpresa: number, insumosUtilizacion: InsumosBasicos) {
+enviarDatosServiciosBasicos(idEmpresa: number, insumosUtilizacion: UtilizacionInsumos) {
   return this.http.post(`${this.baseUrl}/${idEmpresa}/utilizacionInsumos`, insumosUtilizacion);
 }
 
