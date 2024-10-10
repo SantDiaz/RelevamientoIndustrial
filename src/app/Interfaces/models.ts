@@ -125,7 +125,18 @@ export interface manoDeObra {
   id_empresa?: number;  // Agregar id_empresa
 }
 
-export interface cantidadTrabajadores {
+  export interface cantidadTrabajadores {
+      id: number;
+      id_empresa?: number;  // Agregar id_empresa
+      plantaAfPermanente: string;
+      plantaAfContratado: string;
+      plantaResto: string;
+      temporalAfectado: string;
+      temporalResto: string;
+      periodo: string;
+  }
+
+  export interface horasNormales {
     id: number;
     id_empresa?: number;  // Agregar id_empresa
     plantaAfPermanente: string;
@@ -134,29 +145,18 @@ export interface cantidadTrabajadores {
     temporalAfectado: string;
     temporalResto: string;
     periodo: string;
-}
+  }
 
-export interface horasNormales {
-  id: number;
-  id_empresa?: number;  // Agregar id_empresa
-  plantaAfPermanente: string;
-  plantaAfContratado: string;
-  plantaResto: string;
-  temporalAfectado: string;
-  temporalResto: string;
-  periodo: string;
-}
-
-export interface horasExtras {
-  id: number;
-  id_empresa?: number;  // Agregar id_empresa
-  plantaAfPermanente: string;
-  plantaAfContratado: string;
-  plantaResto: string;
-  temporalAfectado: string;
-  temporalResto: string;
-  periodo: string;
-}
+  export interface horasExtras {
+    id: number;
+    id_empresa?: number;  // Agregar id_empresa
+    plantaAfPermanente: string;
+    plantaAfContratado: string;
+    plantaResto: string;
+    temporalAfectado: string;
+    temporalResto: string;
+    periodo: string;
+  }
 
 
 
@@ -205,6 +205,7 @@ export const unidad_medidas = [
     item: string; // Nombre del item
     monto: number; // Monto asociado
    id_empresa?: number; // Agregar id_empresa
+   periodo?: string;
 
 }
   
@@ -217,6 +218,35 @@ export interface ventas {
   periodo: string;
 
 }
+
+export interface actividades {
+   
+  id_empresa?: number; // Agregar id_empresa
+  nombre: string;
+  monto: number;
+  realiza: string;
+}
+export interface investigacionDesarrollo {
+  id:number;
+  id_empresa?: number; // Agregar id_empresa
+  actividad: actividades[];
+
+}
+
+
+export interface perspectiva{
+  id: number;
+  id_empresa?: number; // Agregar id_empresa
+  item: items[];
+}
+export interface items{
+  id_empresa?: number; // Agregar id_empresa
+  nombre: string;
+  observaciones: string;
+  respuesta: string;
+
+}
+
 
 // export interface operativos {
 //     id: number;

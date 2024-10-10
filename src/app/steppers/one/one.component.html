@@ -169,19 +169,18 @@
         <tbody>
           <tr *ngFor="let produccion of producciones; let i = index">
             <td class="border border-gray-300 px-4 py-2">
-              <input type="text" [(ngModel)]="produccionEjemplo.producto" class="w-full">
-              <!-- <input type="text" [(ngModel)]="produccion.producto" (input)="onBuscarOAgregarProducto($event, i)" class="w-full"> -->
+              <input type="text" [(ngModel)]="produccion.producto" class="w-full">
             </td>
             <td class="border border-gray-300 px-4 py-2">
-              <select [(ngModel)]="produccionEjemplo.unidad_medida">
+              <select [(ngModel)]="produccion.unidad_medida">
                 <option *ngFor="let opcion of unidad_medida" [value]="opcion">{{ opcion }}</option>
               </select>
             </td>
             <td class="border border-gray-300 px-4 py-2">
-              <input type="number" [(ngModel)]="produccionEjemplo.mercado_interno" class="w-full">
+              <input type="number" [(ngModel)]="produccion.mercado_interno" class="w-full">
             </td>
             <td class="border border-gray-300 px-4 py-2">
-              <input type="number" [(ngModel)]="produccionEjemplo.mercado_externo" class="w-full">
+              <input type="number" [(ngModel)]="produccion.mercado_externo" class="w-full">
             </td>
           </tr>
         </tbody>
