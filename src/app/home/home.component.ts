@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
     medio: 'PAPEL',
     observaciones_ingresador: '',
     observaciones_analista: '',
+    anio: '2024', 
   };
 
   idEmpresa: number = 0 ;
@@ -38,7 +39,7 @@ export class HomeComponent implements OnInit {
     this.encuestaService.saveEncuesta(this.encuesta).subscribe({
       next: (response) => {
         console.log('Encuesta saved successfully:', response);
-        
+        this.encuesta.anio = '2024';
         // Suponiendo que el id_empresa viene en el response
         const idEmpresa = response.id_empresa;
 

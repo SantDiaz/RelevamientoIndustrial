@@ -11,6 +11,7 @@ export interface encuestas {
     medio: 'PAPEL' | 'DIGITAL'
     observaciones_ingresador: string;
     observaciones_analista: string;
+    anio? : '2024'
 }
 
 export interface DatosEmpresa {
@@ -229,6 +230,8 @@ export interface actividades {
   monto: number;
   realiza: string;
 }
+
+
 export interface investigacionDesarrollo {
   id:number;
   id_empresa?: number; // Agregar id_empresa

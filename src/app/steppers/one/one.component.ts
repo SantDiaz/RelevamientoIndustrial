@@ -30,15 +30,15 @@ export class OneComponent implements OnInit {
   
   
   producciones: produccion[] = [];
-  produccionEjemplo: produccion = {
-    id: 0,
-    producto: '',
-    unidad_medida: 'CENTÍMETRO (cm)', // Puedes dejarlo como null inicialmente
-    mercado_interno: 0, // Inicialmente null
-    mercado_externo: 0, // Inicialmente null
-    id_empresa: undefined, // Opcional, se puede dejar como undefined
-    observaciones: '' // Inicialmente vacío
-};
+//   produccionEjemplo: produccion = {
+//     id: 0,
+//     producto: '',
+//     unidad_medida: 'CENTÍMETRO (cm)', // Puedes dejarlo como null inicialmente
+//     mercado_interno: 0, // Inicialmente null
+//     mercado_externo: 0, // Inicialmente null
+//     id_empresa: undefined, // Opcional, se puede dejar como undefined
+//     observaciones: '' // Inicialmente vacío
+// };
 // bieness: InsumosBasicos[] = [];
     bieness:  UtilizacionInsumos  [] = [];
     insumo_basic: InsumosBasicos[] = [];
@@ -228,32 +228,35 @@ idEmpresa: number = 0 ;
  
 
     step2() {
-      console.log(this.produccionEjemplo); // Verificar datos enviados
-      this.produccionEjemplo.id_empresa = this.idEmpresa;
-
-      this.oneService.enviarDatosProduccion(this.produccionEjemplo).subscribe({
-        next: (response) => {
-          console.log('Datos enviados exitosamente:', response);
-          if (this.currentStep < 10) {
-            this.currentStep++;
-            this.updateStepVisibility();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }    
-        },
-        error: (error) => {
-          console.error('Error al enviar los datos:', error);
-        },
-        complete: () => {
-          console.log('Solicitud completada.');
-        }
+      console.log(this.producciones); // Verificar datos enviados
+      
+      // Asignar id_empresa a cada producción
+      this.producciones.forEach(produccion => produccion.id_empresa = this.idEmpresa);
+    
+      // Enviar datos de producción
+      this.producciones.forEach(produccion => {
+        this.oneService.enviarDatosProduccion(produccion).subscribe({
+          next: (response) => {
+            console.log('Datos enviados exitosamente:', response);
+            if (this.currentStep < 10) {
+              this.currentStep++;
+              this.updateStepVisibility();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          },
+          error: (error) => {
+            console.error('Error al enviar los datos:', error);
+          }
+        });
       });
-      // Asigna id_empresa a cada producción
+    
       if (this.currentStep < 10) {
         this.currentStep++;
         this.updateStepVisibility();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
+    
 
     step3() {
       // Validación de datos
