@@ -71,7 +71,7 @@ idEmpresa: number = 0 ;
     nombreApellido: '',
     cargoArea: '',
     tipoTelefono: 'Particular',
-    numeroTelefono: 0,
+    numeroTelefono: '',
     email: ''
   };
  
