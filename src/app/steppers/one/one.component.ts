@@ -62,6 +62,7 @@ idEmpresa: number = 0 ;
     direccionAdministracion: '',
     localidadEstablecimiento: '',
     actividadPrincipal: '',
+    clanae: '',
 
   };
 

@@ -24,6 +24,7 @@ export interface DatosEmpresa {
     localidadEstablecimiento: string;
     actividadPrincipal: string;
     id_empresa?: number;  // Agregar id_empresa
+    clanae?: string;
 
   }
   
