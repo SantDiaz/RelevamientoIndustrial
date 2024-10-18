@@ -207,7 +207,6 @@
       <div class="p-4">
         <h1 class="text-xl font-bold text-center mb-4">INDUSTRIA MANUFACTURERA - VENTAS</h1>
         <h2 class="text-lg font-semibold mb-2">Periodo a declarar: Abril a Junio </h2>
-       
         <p class="mb-4 text-sm">
           VENTA DE BIENES Y SERVICIOS DE REPARACIONES INDUSTRIALES<br>
           Comprende las ventas de bienes y/o servicios y otros ingresos devengados correspondientes al mes de referencia. No debe incluir IVA ni impuestos internos y a los combustibles, tampoco reintegros ni subsidios.
@@ -236,9 +235,9 @@
               <td class="border border-gray-300 p-2 text-center">
                 <strong>Ventas </strong><br>
 
-                <input type="text" class="w-full border border-gray-300 p-1">
-                <input type="text" class="w-full border border-gray-300 p-1">
-                <input type="text" class="w-full border border-gray-300 p-1">
+                <input [(ngModel)]="venta.items[0].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Al mercado interno">
+                <input [(ngModel)]="venta.items[1].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Al mercado externo">
+                <input [(ngModel)]="venta.items[2].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Transferencias">
               </td>
               <td class="border border-gray-300 p-2">
                 Venta de bienes producidos con materia prima propia: comprende la venta realizada por el establecimiento, durante el mes de referencia, de bienes elaborados en el establecimiento o mandados a elaborar por terceros con materia prima del establecimiento, a precio de venta en fábrica.
@@ -249,7 +248,7 @@
                 <strong>9.2. Trabajos industriales realizados con materia prima de terceros</strong>
               </td>
               <td class="border border-gray-300 p-2 text-center">
-                <input type="text" class="w-full border border-gray-300 p-1">
+                <input [(ngModel)]="venta.items[3].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Trabajos industriales">
               </td>
               <td class="border border-gray-300 p-2">
                 Trabajos industriales realizados para terceros: comprende los ingresos devengados por trabajos industriales realizados con materia prima de terceros (por ejemplo, maquilas).
@@ -260,7 +259,7 @@
                 <strong>9.3. Reparación de maquinarias y equipos pertenecientes a terceros</strong>
               </td>
               <td class="border border-gray-300 p-2 text-center">
-                <input type="text" class="w-full border border-gray-300 p-1">
+                <input [(ngModel)]="venta.items[4].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Trabajos industriales">
               </td>
               <td class="border border-gray-300 p-2">
                 Reparación y mantenimiento de maquinarias y equipos industriales de terceros: Registran los ingresos por reparación y mantenimiento de maquinarias y equipos industriales pertenecientes a terceros.
@@ -271,7 +270,7 @@
                 <strong>9.4. Venta de mercadería en el mismo estado que se encuentran</strong>
               </td>
               <td class="border border-gray-300 p-2 text-center">
-                <input type="text" class="w-full border border-gray-300 p-1">
+                <input [(ngModel)]="venta.items[5].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Trabajos industriales">
               </td>
               <td class="border border-gray-300 p-2">
                 Ventas de mercaderías en el mismo estado en que fueron adquiridas: incluye también la venta de productos elaborados por otros establecimientos de la misma empresa.
@@ -282,7 +281,7 @@
                 <strong>9.5. Valor de los trabajos industriales realizados a contrato de trabajo o avance de obra</strong>
               </td>
               <td class="border border-gray-300 p-2 text-center">
-                <input type="text" class="w-full border border-gray-300 p-1">
+                <input [(ngModel)]="venta.items[6].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Trabajos industriales">
               </td>
               <td class="border border-gray-300 p-2">
                 Valor parcial devengado por los trabajos industriales realizados por contrato de trabajo o avance de obra:
@@ -293,19 +292,15 @@
                 <strong>9.6. Otros Ingresos</strong>
               </td>
               <td class="border border-gray-300 p-2 text-center">
-                <input type="text" class="w-full border border-gray-300 p-1">
+                <input [(ngModel)]="venta.items[7].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Trabajos industriales">
               </td>
               <td class="border border-gray-300 p-2">
                 Otros ingresos: comprende otros ingresos tales como ventas de electricidad, alquileres y otros ingresos no especificados en los ítem anteriores.
               </td>
             </tr>
             <tr>
-              <td class="border border-gray-300 p-2">
-                <strong>9.7. Total Ingresos</strong>
-              </td>
-              <td class="border border-gray-300 p-2 text-center">
-                <input type="text" class="w-full border border-gray-300 p-1">
-              </td>
+             
+           
           
             </tr>
           </tbody>
@@ -321,7 +316,7 @@
           </div>
         </div>
       </div>
-    </div>
+</div>
       
       
       
@@ -363,9 +358,9 @@
                 <td class="border border-gray-300 p-2 text-center">
                   <strong>Ventas </strong><br>
   
-                  <input type="text" class="w-full border border-gray-300 p-1">
-                  <input type="text" class="w-full border border-gray-300 p-1">
-                  <input type="text" class="w-full border border-gray-300 p-1">
+                  <input [(ngModel)]="venta.items[0].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Al mercado interno">
+                  <input [(ngModel)]="venta.items[1].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Al mercado externo">
+                  <input [(ngModel)]="venta.items[2].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Transferencias">
                 </td>
                 <td class="border border-gray-300 p-2">
                   Venta de bienes producidos con materia prima propia: comprende la venta realizada por el establecimiento, durante el mes de referencia, de bienes elaborados en el establecimiento o mandados a elaborar por terceros con materia prima del establecimiento, a precio de venta en fábrica.
@@ -376,7 +371,7 @@
                   <strong>9.2. Trabajos industriales realizados con materia prima de terceros</strong>
                 </td>
                 <td class="border border-gray-300 p-2 text-center">
-                  <input type="text" class="w-full border border-gray-300 p-1">
+                  <input [(ngModel)]="venta.items[3].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Trabajos industriales">
                 </td>
                 <td class="border border-gray-300 p-2">
                   Trabajos industriales realizados para terceros: comprende los ingresos devengados por trabajos industriales realizados con materia prima de terceros (por ejemplo, maquilas).
@@ -387,7 +382,7 @@
                   <strong>9.3. Reparación de maquinarias y equipos pertenecientes a terceros</strong>
                 </td>
                 <td class="border border-gray-300 p-2 text-center">
-                  <input type="text" class="w-full border border-gray-300 p-1">
+                  <input [(ngModel)]="venta.items[4].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Trabajos industriales">
                 </td>
                 <td class="border border-gray-300 p-2">
                   Reparación y mantenimiento de maquinarias y equipos industriales de terceros: Registran los ingresos por reparación y mantenimiento de maquinarias y equipos industriales pertenecientes a terceros.
@@ -398,7 +393,7 @@
                   <strong>9.4. Venta de mercadería en el mismo estado que se encuentran</strong>
                 </td>
                 <td class="border border-gray-300 p-2 text-center">
-                  <input type="text" class="w-full border border-gray-300 p-1">
+                  <input [(ngModel)]="venta.items[5].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Trabajos industriales">
                 </td>
                 <td class="border border-gray-300 p-2">
                   Ventas de mercaderías en el mismo estado en que fueron adquiridas: incluye también la venta de productos elaborados por otros establecimientos de la misma empresa.
@@ -409,7 +404,7 @@
                   <strong>9.5. Valor de los trabajos industriales realizados a contrato de trabajo o avance de obra</strong>
                 </td>
                 <td class="border border-gray-300 p-2 text-center">
-                  <input type="text" class="w-full border border-gray-300 p-1">
+                  <input [(ngModel)]="venta.items[6].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Trabajos industriales">
                 </td>
                 <td class="border border-gray-300 p-2">
                   Valor parcial devengado por los trabajos industriales realizados por contrato de trabajo o avance de obra:
@@ -420,19 +415,15 @@
                   <strong>9.6. Otros Ingresos</strong>
                 </td>
                 <td class="border border-gray-300 p-2 text-center">
-                  <input type="text" class="w-full border border-gray-300 p-1">
+                  <input [(ngModel)]="venta.items[7].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Trabajos industriales">
                 </td>
                 <td class="border border-gray-300 p-2">
                   Otros ingresos: comprende otros ingresos tales como ventas de electricidad, alquileres y otros ingresos no especificados en los ítem anteriores.
                 </td>
               </tr>
               <tr>
-                <td class="border border-gray-300 p-2">
-                  <strong>9.7. Total Ingresos</strong>
-                </td>
-                <td class="border border-gray-300 p-2 text-center">
-                  <input type="text" class="w-full border border-gray-300 p-1">
-                </td>
+               
+             
             
               </tr>
             </tbody>
@@ -448,8 +439,7 @@
             </div>
           </div>
         </div>
-      </div>
-      
+  </div>
       
       
         <div id="step-4" class="hidden">
@@ -457,7 +447,6 @@
             <div class="p-4">
               <h1 class="text-xl font-bold text-center mb-4">INDUSTRIA MANUFACTURERA - VENTAS</h1>
               <h2 class="text-lg font-semibold mb-2">Periodo a declarar: Octubre a Diciembre</h2>
-             
               <p class="mb-4 text-sm">
                 VENTA DE BIENES Y SERVICIOS DE REPARACIONES INDUSTRIALES<br>
                 Comprende las ventas de bienes y/o servicios y otros ingresos devengados correspondientes al mes de referencia. No debe incluir IVA ni impuestos internos y a los combustibles, tampoco reintegros ni subsidios.
@@ -486,9 +475,9 @@
                     <td class="border border-gray-300 p-2 text-center">
                       <strong>Ventas </strong><br>
       
-                      <input type="text" class="w-full border border-gray-300 p-1">
-                      <input type="text" class="w-full border border-gray-300 p-1">
-                      <input type="text" class="w-full border border-gray-300 p-1">
+                      <input [(ngModel)]="venta.items[0].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Al mercado interno">
+                      <input [(ngModel)]="venta.items[1].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Al mercado externo">
+                      <input [(ngModel)]="venta.items[2].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Transferencias">
                     </td>
                     <td class="border border-gray-300 p-2">
                       Venta de bienes producidos con materia prima propia: comprende la venta realizada por el establecimiento, durante el mes de referencia, de bienes elaborados en el establecimiento o mandados a elaborar por terceros con materia prima del establecimiento, a precio de venta en fábrica.
@@ -499,7 +488,7 @@
                       <strong>9.2. Trabajos industriales realizados con materia prima de terceros</strong>
                     </td>
                     <td class="border border-gray-300 p-2 text-center">
-                      <input type="text" class="w-full border border-gray-300 p-1">
+                      <input [(ngModel)]="venta.items[3].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Trabajos industriales">
                     </td>
                     <td class="border border-gray-300 p-2">
                       Trabajos industriales realizados para terceros: comprende los ingresos devengados por trabajos industriales realizados con materia prima de terceros (por ejemplo, maquilas).
@@ -510,7 +499,7 @@
                       <strong>9.3. Reparación de maquinarias y equipos pertenecientes a terceros</strong>
                     </td>
                     <td class="border border-gray-300 p-2 text-center">
-                      <input type="text" class="w-full border border-gray-300 p-1">
+                      <input [(ngModel)]="venta.items[4].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Trabajos industriales">
                     </td>
                     <td class="border border-gray-300 p-2">
                       Reparación y mantenimiento de maquinarias y equipos industriales de terceros: Registran los ingresos por reparación y mantenimiento de maquinarias y equipos industriales pertenecientes a terceros.
@@ -521,7 +510,7 @@
                       <strong>9.4. Venta de mercadería en el mismo estado que se encuentran</strong>
                     </td>
                     <td class="border border-gray-300 p-2 text-center">
-                      <input type="text" class="w-full border border-gray-300 p-1">
+                      <input [(ngModel)]="venta.items[5].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Trabajos industriales">
                     </td>
                     <td class="border border-gray-300 p-2">
                       Ventas de mercaderías en el mismo estado en que fueron adquiridas: incluye también la venta de productos elaborados por otros establecimientos de la misma empresa.
@@ -532,7 +521,7 @@
                       <strong>9.5. Valor de los trabajos industriales realizados a contrato de trabajo o avance de obra</strong>
                     </td>
                     <td class="border border-gray-300 p-2 text-center">
-                      <input type="text" class="w-full border border-gray-300 p-1">
+                      <input [(ngModel)]="venta.items[6].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Trabajos industriales">
                     </td>
                     <td class="border border-gray-300 p-2">
                       Valor parcial devengado por los trabajos industriales realizados por contrato de trabajo o avance de obra:
@@ -543,17 +532,15 @@
                       <strong>9.6. Otros Ingresos</strong>
                     </td>
                     <td class="border border-gray-300 p-2 text-center">
-                      <input type="text" class="w-full border border-gray-300 p-1">
+                      <input [(ngModel)]="venta.items[7].monto" type="text" class="w-full border border-gray-300 p-1" placeholder="Monto Trabajos industriales">
                     </td>
                     <td class="border border-gray-300 p-2">
                       Otros ingresos: comprende otros ingresos tales como ventas de electricidad, alquileres y otros ingresos no especificados en los ítem anteriores.
                     </td>
                   </tr>
                   <tr>
+                   
                  
-                    <td class="border border-gray-300 p-2 text-center">
-                      <input type="text" class="w-full border border-gray-300 p-1">
-                    </td>
                 
                   </tr>
                 </tbody>
@@ -569,4 +556,4 @@
                 </div>
               </div>
             </div>
-              </div>
+      </div>
