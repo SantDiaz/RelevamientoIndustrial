@@ -96,6 +96,7 @@ console.log('Datos a guardar:', this.venta);
     }, error => {
       console.error('Error al guardar la venta', error);
       if (this.currentStep < 10) {  // Ajusta este número si añades más pasos
+        this.resetFields();
         this.currentStep++;
         this.updateStepVisibility();
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -119,6 +120,7 @@ console.log('Datos a guardar:', this.venta);
         }, error => {
           console.error('Error al guardar la venta', error);
           if (this.currentStep < 10) {  // Ajusta este número si añades más pasos
+            this.resetFields();  // Vaciar los campos aquí
             this.currentStep++;
             this.updateStepVisibility();
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -141,6 +143,7 @@ console.log('Datos a guardar:', this.venta);
         }, error => {
           console.error('Error al guardar la venta', error);
           if (this.currentStep < 10) {  // Ajusta este número si añades más pasos
+            this.resetFields();  // Vaciar los campos aquí
             this.currentStep++;
             this.updateStepVisibility();
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -168,6 +171,15 @@ console.log('Datos a guardar:', this.venta);
       }
 
 
+
+      resetFields() {
+        this.venta = {
+          id: 0,
+          items: [],
+          periodo: ''
+        };
+        this.initializeItems(); // Reiniciar los items también si es necesario
+      }
 // Yo pienso que se deberia guardar en las dos tablas los perioddos que decis vos?
 
 }

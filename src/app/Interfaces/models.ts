@@ -33,7 +33,7 @@ export interface DatosEmpresa {
     nombreApellido: string;
     cargoArea: string;
     tipoTelefono: 'Particular' | 'Corporativo';
-    numeroTelefono: number;
+    numeroTelefono: string;
     email: string;
     id_empresa?: number;  // Agregar id_empresa
 
