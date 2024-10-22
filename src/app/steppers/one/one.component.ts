@@ -88,7 +88,8 @@ idEmpresa: number = 0 ;
     this.agregarNuevaFila(); // Agregar una fila inicial
     this.agregarNuevaFila3(); // Agregar una fila inicial
     this.agregarNuevaFilaServicio();
-    this. agregarNuevaFilaServicioBasico()
+    this.agregarNuevaFilaServicioBasico();
+    this.agregarNuevaFilaRemuneracionCarga();
     this.idEmpresa = Number(this.route.snapshot.paramMap.get('id'));
     console.log('ID Empresa recibido:', this.idEmpresa);
   }
