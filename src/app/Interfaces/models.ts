@@ -129,33 +129,33 @@ export interface manoDeObra {
   export interface cantidadTrabajadores {
       id: number;
       id_empresa?: number;  // Agregar id_empresa
-      plantaAfPermanente: string;
-      plantaAfContratado: string;
-      plantaResto: string;
-      temporalAfectado: string;
-      temporalResto: string;
+      plantaAfPermanente: number;
+      plantaAfContratado: number;
+      plantaResto:        number;
+      temporalAfectado:   number;
+      temporalResto:      number;
       periodo: string;
   }
 
   export interface horasNormales {
     id: number;
     id_empresa?: number;  // Agregar id_empresa
-    plantaAfPermanente: string;
-    plantaAfContratado: string;
-    plantaResto: string;
-    temporalAfectado: string;
-    temporalResto: string;
+    plantaAfPermanente: number;
+    plantaAfContratado: number;
+    plantaResto:        number;
+    temporalAfectado:   number;
+    temporalResto:      number;
     periodo: string;
   }
 
   export interface horasExtras {
     id: number;
     id_empresa?: number;  // Agregar id_empresa
-    plantaAfPermanente: string;
-    plantaAfContratado: string;
-    plantaResto: string;
-    temporalAfectado: string;
-    temporalResto: string;
+    plantaAfPermanente: number;
+    plantaAfContratado: number;
+    plantaResto:        number;
+    temporalAfectado:   number;
+    temporalResto:      number;
     periodo: string;
   }
 

@@ -13,6 +13,8 @@ import { FourComponent } from './steppers/four/four.component';
 import { LoginComponent } from './sesion/login/login.component';
 import { RegisterComponent } from './sesion/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TableComponent } from './tables/table/table.component';
+import { ConsultasComponent } from './tables/consultas/consultas.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     FourComponent,
     LoginComponent,
     RegisterComponent,
+    TableComponent,
+    ConsultasComponent,
     
   ],
   imports: [

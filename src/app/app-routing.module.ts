@@ -7,6 +7,7 @@ import { ThreeComponent } from './steppers/three/three.component';
 import { FourComponent } from './steppers/four/four.component';
 import { LoginComponent } from './sesion/login/login.component';
 import { RegisterComponent } from './sesion/register/register.component';
+import { TableComponent } from './tables/table/table.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
   {
     path: 'log',
     component: LoginComponent
+  },
+  {
+    path: 'table',
+    component: TableComponent
   }
 ];
 

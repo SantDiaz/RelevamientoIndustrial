@@ -18,32 +18,32 @@ export class TwoComponent implements OnInit {
   cantidadTrabajadores: cantidadTrabajadores = {
     id: 0,
     id_empresa: 123,  // ID de la empresa
-    plantaAfPermanente: '',
-    plantaAfContratado: '',
-    plantaResto: '',
-    temporalAfectado: '',
-    temporalResto: '',
+    plantaAfPermanente: 0,
+    plantaAfContratado: 0,
+    plantaResto:        0,
+    temporalAfectado:   0,
+    temporalResto:      0,
     periodo: 'Enero a Marzo 2023'
   };
 
   horasNormales: horasNormales = {
     id: 0,
     id_empresa: 123,  // ID de la empresa
-    plantaAfPermanente: '',
-    plantaAfContratado: '',
-    plantaResto: '',
-    temporalAfectado: '',
-    temporalResto: '',
+    plantaAfPermanente: 0,
+    plantaAfContratado: 0,
+    plantaResto:        0,
+    temporalAfectado:   0,
+    temporalResto:      0,
     periodo: 'Enero a Marzo 2023'
   };
 
   horasExtras: horasExtras = {
     id: 0,
-    plantaAfPermanente: '',
-    plantaAfContratado: '',
-    plantaResto: '',
-    temporalAfectado: '',
-    temporalResto: '',
+    plantaAfPermanente: 0,
+    plantaAfContratado: 0,
+    plantaResto:        0,
+    temporalAfectado:   0,
+    temporalResto:      0,
     periodo: ''
   };
 
@@ -267,31 +267,31 @@ export class TwoComponent implements OnInit {
           resetFormData() {
             this.cantidadTrabajadores = {
                 id: 0,
-                plantaAfPermanente: '',
-                plantaAfContratado: '',
-                plantaResto: '',
-                temporalAfectado: '',
-                temporalResto: '',
+                plantaAfPermanente: 0,
+                plantaAfContratado: 0,
+                plantaResto:        0,
+                temporalAfectado:   0,
+                temporalResto:      0,
                 periodo: ''
             };
 
             this.horasNormales = {
                 id: 0,
-                plantaAfPermanente: '',
-                plantaAfContratado: '',
-                plantaResto: '',
-                temporalAfectado: '',
-                temporalResto: '',
+                plantaAfPermanente: 0,
+                plantaAfContratado: 0,
+                plantaResto:        0,
+                temporalAfectado:   0,
+                temporalResto:      0,
                 periodo: ''
             };
 
             this.horasExtras = {
                 id: 0,
-                plantaAfPermanente: '',
-                plantaAfContratado: '',
-                plantaResto: '',
-                temporalAfectado: '',
-                temporalResto: '',
+                plantaAfPermanente: 0,
+                plantaAfContratado: 0,
+                plantaResto:        0,
+                temporalAfectado:   0,
+                temporalResto:      0,
                 periodo: ''
             };
           }
